@@ -98,77 +98,9 @@
                                             </th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @forelse ($carts as $item)
-                                        <tr>
-                                            <td>
-                                                {{ $item->name }}
-                                            </td>
-                                            <td style="min-width: 170px;">
-                                                <form></form>
-                                                <form action="{{ route('pos.updateCartItem', $item->rowId) }}" method="POST">
-                                                    @csrf
-                                                    <div class="input-group">
-                                                        <input type="number" class="form-control" name="qty" required value="{{ old('qty', $item->qty) }}">
-                                                        <input type="hidden" class="form-control" name="product_id" value="{{ $item->id }}">
+                                  <tbody id="cartItemTbody">
 
-                                                        <div class="input-group-append text-center">
-                                                            <button type="submit" class="btn btn-icon btn-success border-none" data-toggle="tooltip" data-placement="top" title="" data-original-title="Sumbit">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </td>
-                                            <td class="text-center">
-                                                {{ $item->price }}
-                                            </td>
-                                            <td class="text-center">
-                                                {{ $item->subtotal }}
-                                            </td>
-                                            <td class="text-center">
-                                                <form action="{{ route('pos.deleteCartItem', $item->rowId) }}" method="POST">
-                                                    @method('delete')
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-icon btn-outline-danger " onclick="return confirm('Are you sure you want to delete this record?')">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                        @empty
-                                        <td colspan="5" class="text-center">
-                                            {{ __('Add Products') }}
-                                        </td>
-                                        @endforelse
-
-                                        <tr>
-                                            <td colspan="4" class="text-end">
-                                                Total Product
-                                            </td>
-                                            <td class="text-center">
-                                                {{ Cart::count() }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" class="text-end">Subtotal</td>
-                                            <td class="text-center">
-                                                {{ Cart::subtotal() }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" class="text-end">Tax</td>
-                                            <td class="text-center">
-                                                {{ Cart::tax() }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="4" class="text-end">Total</td>
-                                            <td class="text-center">
-                                                {{ Cart::total() }}
-                                            </td>
-                                        </tr>
-                                    </tbody>
+                                  </tbody>
                                 </table>
                             </div>
 
@@ -191,7 +123,7 @@
                     <div class="card-body">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered align-middle">
+                                <table class="table table-striped table-bordered align-middle"  id="productTable" >
                                     <thead class="thead-light">
                                         <tr>
                                             {{--- <th scope="col">No.</th> ---}}
@@ -226,12 +158,12 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex">
-                                                    <form action="{{ route('pos.addCartItem', $product) }}" method="POST">
+                                                    <form id="addCartItemForm"> 
+                                                    <!-- <form action="{{ route('pos.addCartItem', $product) }}" method="POST"> -->
                                                         @csrf
                                                         <input type="hidden" name="id" value="{{ $product->id }}">
                                                         <input type="hidden" name="name" value="{{ $product->name }}">
                                                         <input type="hidden" name="selling_price" value="{{ $product->selling_price }}">
-
                                                         <button type="submit" class="btn btn-icon btn-outline-primary">
                                                             <x-icon.cart/>
                                                         </button>
@@ -262,4 +194,91 @@
 
 @pushonce('page-scripts')
     <script src="{{ asset('assets/js/img-preview.js') }}"></script>
+    <script> 
+        $(document).ready(function(){
+            console.log("this if Order Create Page ");
+            $('#productTable').DataTable({
+                "paging": true,        // Enable pagination
+                "searching": true,     // Enable search bar
+                "ordering": true,      // Enable column-based sorting
+                "responsive": true     // Make the table responsive
+            });
+            getCart();  // This will get the cart at page loading .
+            $(document).on("submit", "#addCartItemForm", function(e){
+                e.preventDefault();
+                console.log("Button is clided ");
+                let formData = $(this).serialize();
+                $.ajax({
+                    url: "{{ route('pos.addCartItem') }}",
+                    method : 'post',
+                    data : formData,
+                    success : function(response){
+                        console.log("Cart response is success : " , response);
+                        getCart();
+                    },
+                    error: function(xhr,status,error){
+                        console.log("Error Occured : " + error);
+                    }
+                });
+            });
+       
+            // For updatting the Quanity of the Cart itemd
+            $(document).on("click", ".updateQuantityForm button[type='button']", function(e){
+                e.preventDefault();
+                let form = $(this).closest('form'); 
+                let formData = form.serialize();
+                $.ajax({
+                    url: "{{ route('pos.updateCartItem') }}",
+                    method : 'post',
+                    data : formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token if needed
+                    },
+                    success : function(response){
+                        getCart();
+                        if(!response.success) 
+                            alert("There is no more stock of this Item");
+                    },
+                    error: function(xhr,status,error){
+                        console.log("Error Occured : " + error);
+                    }
+                });
+            });
+            $(document).on('click', ".deleteCartItem  button[type='button']" , function(e){
+                e.preventDefault();
+                let form = $(this).closest('form'); 
+                let formData = form.serialize();
+                $.ajax({
+                    url: "{{ route('pos.deleteCartItem') }}",
+                    method: 'delete',
+                    data : formData,
+                    success : function(response){
+                        console.log("Deleted Successfully " , response);
+                        if(response.success)
+                            getCart();
+                        else 
+                            alert('There is something Wrong Cannot delete it');
+                    },
+                    error : function(xhr, status, error){
+                        console.log("Error is : " , error);
+                        
+                    }
+                });   
+            });
+
+            function getCart(){
+                $.ajax({
+                    url: "{{route('pos.cartItem')}}",
+                    method : 'get',
+                    success: function(response){
+                        // console.log(response);
+                        $('#cartItemTbody').html(response);
+                    },
+                    error:function(xhr, status,error){
+                        console.log("Error is : " + error);
+                    }
+                });
+            }
+        });
+    </script>
 @endpushonce

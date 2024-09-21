@@ -15,19 +15,19 @@ class PosController extends Controller
 
         $customers = Customer::all()->sortBy('name');
 
-        $carts = Cart::content();
-
+        // $carts = Cart::content();
+        // Remove the cats as it will be loaded from Javascript. getCart Function is written below
         return view('pos.index', [
             'products' => $products,
             'customers' => $customers,
-            'carts' => $carts,
+            // 'carts' => $carts,
         ]);
     }
 
     public function addCartItem (Request $request)
     {
-        $request->all();
-        //dd($request);
+        // $request->all();
+        // dd($request->all());
 
         $rules = [
             'id' => 'required|numeric',
@@ -37,7 +37,7 @@ class PosController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        Cart::add(
+       $productAddedToCart =  Cart::add(
             $validatedData['id'],
             $validatedData['name'],
             1,
@@ -45,14 +45,16 @@ class PosController extends Controller
             1,
             (array)$options = null
         );
-
-        return redirect()
-            ->back()
-            ->with('success', 'Product has been added to cart!');
+        return response()->json(['success',true, "productAdded"=>$productAddedToCart]);
+        // return redirect()
+        //     ->back()
+        //     ->with('success', 'Product has been added to cart!');
     }
 
-    public function updateCartItem(Request $request, $rowId)
+    public function updateCartItem(Request $request)
     {
+        // dd($request->all());
+        $rowId = $request->rowId;
         $rules = [
             'qty' => 'required|numeric',
             'product_id' => 'numeric'
@@ -60,25 +62,36 @@ class PosController extends Controller
         
         $validatedData = $request->validate($rules);
         if ($validatedData['qty'] > Product::where('id', intval($validatedData['product_id']))->value('quantity')) {
-            return redirect()
-            ->back()
-            ->with('error', 'The requested quantity is not available in stock.');
+            return response()->json(['success'=>false]);
+                // above line is added as we will update this with Javascript 
+            // return redirect()
+            // ->back()
+            // ->with('error', 'The requested quantity is not available in stock.');
         }
         
 
         Cart::update($rowId, $validatedData['qty']);
-
-        return redirect()
-            ->back()
-            ->with('success', 'Product has been updated from cart!');
+        return response()->json(['success'=>true]);
+        // above line is added as we will update this with Javascript 
+        // return redirect()
+        //     ->back()
+        //     ->with('success', 'Product has been updated from cart!');
     }
 
-    public function deleteCartItem(String $rowId)
+    public function deleteCartItem(Request $request) //  String $rowId)
     {
-        Cart::remove($rowId);
+        // dd($request->all());
+        $rowId = $request->rowId;
+       $result =  Cart::remove($rowId);
+        return response()->json(['success'=>true, "result"=>$result]); 
 
         return redirect()
             ->back()
             ->with('success', 'Product has been deleted from cart!');
+    }
+    // This function will return the view of Tbody along with total, count etc of Table .
+    public function getCart() {
+        $carts = Cart::content();
+        return view('orders.cart-items',compact('carts'));
     }
 }

@@ -17,7 +17,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::where("user_id", auth()->id())->count();
+        $products = Product::where("user_id", auth()->id())->with(['category','unit']) ->count();
 
         return view('products.index', [
             'products' => $products,

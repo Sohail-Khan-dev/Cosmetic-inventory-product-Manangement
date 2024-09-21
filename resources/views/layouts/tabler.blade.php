@@ -15,6 +15,10 @@
     <link href="{{ asset('dist/css/tabler-payments.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('dist/css/tabler-vendors.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('dist/css/demo.min.css') }}" rel="stylesheet" />
+    <!-- DataTables CSS -->
+    <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
+
+   
 
     <style>
         @import url('https://rsms.me/inter/inter.css');
@@ -48,9 +52,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-                    <a href="{{ url('/') }}">
-                        <img src="{{ asset('static/logo.svg') }}" width="110" height="32" alt="Tabler"
-                            class="navbar-brand-image">
+                    <a href="{{ url('/') }}" class="d-flex">
+                        <img src="{{ asset('assets/logo/logo.svg') }}"  height="32" alt="logo"  class="">
+                        <h3 class="mt-1 px-2"> Whole Sale Dealer </h3>
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">
@@ -146,7 +150,7 @@
                         <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                             aria-label="Open user menu">
                             <span class="avatar avatar-sm shadow-none"
-                                style="background-image: url({{ Auth::user()->photo ? asset('storage/profile/' . Auth::user()->photo) : asset('assets/img/illustrations/profiles/admin.jpg') }})">
+                                style="background-image: url({{ Auth::user()->photo ? asset('storage/profile/' . Auth::user()->photo) : asset('assets/img/illustrations/profiles/profile-1.jpg') }})">
                             </span>
 
                             <div class="d-none d-xl-block ps-2">
@@ -357,10 +361,10 @@
 
 
 
-                            <li class="nav-item {{ request()->is('quotations*') ? 'active' : null }}">
+                            <!-- <li class="nav-item {{ request()->is('quotations*') ? 'active' : null }}">
                                 <a class="nav-link" href="{{ route('quotations.index') }}">
                                     <span
-                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                        class="nav-link-icon d-md-none d-lg-inline-block">
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon icon-tabler icon-tabler-file" width="24" height="24"
                                             viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
@@ -375,11 +379,48 @@
                                         {{ __('Quotations') }}
                                     </span>
                                 </a>
+                            </li> -->
+
+                            <li class="nav-item {{ request()->is('suppliers*') ? 'active' : null }}">
+                                    <a class="nav-link" href="{{ route('suppliers.index') }}">
+                                    <span
+                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-file" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                            <path
+                                                d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        {{ __('Suppliers') }}
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ request()->is('customers*') ? 'active' : null }}">
+                            <a class="nav-link" href="{{ route('customers.index') }}">     
+                                    <span
+                                        class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-file" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                                            <path
+                                                d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+                                        </svg>
+                                    </span>
+                                    <span class="nav-link-title">
+                                        {{ __('Customers') }}
+                                    </span>
+                                </a>
                             </li>
 
-
-
-                            <li
+                            <!-- <li
                                 class="nav-item dropdown {{ request()->is('suppliers*', 'customers*') ? 'active' : null }}">
                                 <a class="nav-link dropdown-toggle" href="#navbar-base" data-bs-toggle="dropdown"
                                     data-bs-auto-close="outside" role="button" aria-expanded="false">
@@ -411,7 +452,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
 
 
                             <li
@@ -481,7 +522,7 @@
                 @yield('content')
             </div>
 
-            <footer class="footer footer-transparent d-print-none">
+            <!-- <footer class="footer footer-transparent d-print-none">
                 <div class="container-xl">
                     <div class="row text-center align-items-center flex-row-reverse">
                         <div class="col-lg-auto ms-lg-auto">
@@ -495,7 +536,7 @@
                                 <li class="list-inline-item">
                                     <a href="https://github.com/sponsors/codecalm" target="_blank"
                                         class="link-secondary" rel="noopener">
-                                        <!-- Download SVG icon from http://tabler-icons.io/i/heart -->
+                                        
                                         <svg xmlns="http://www.w3.org/2000/svg"
                                             class="icon text-pink icon-filled icon-inline" width="24"
                                             height="24" viewBox="0 0 24 24" stroke-width="2"
@@ -525,16 +566,20 @@
                             </ul>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </footer>
         </div>
     </div>
 
     <!-- Libs JS -->
     @stack('page-libraries')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Tabler Core -->
     <script src="{{ asset('dist/js/tabler.min.js') }}" defer></script>
     <script src="{{ asset('dist/js/demo.min.js') }}" defer></script>
+
+     <!-- DataTables JS -->
+     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     {{-- - Page Scripts - --}}
     @stack('page-scripts')
 

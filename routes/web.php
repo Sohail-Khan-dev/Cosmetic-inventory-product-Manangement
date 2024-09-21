@@ -71,9 +71,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Route POS
     Route::get('/pos', [PosController::class, 'index'])->name('pos.index');
+    Route::get("/pos/getcart",[PosController::class,'getCart'])->name('pos.cartItem');
     Route::post('/pos/cart/add', [PosController::class, 'addCartItem'])->name('pos.addCartItem');
-    Route::post('/pos/cart/update/{rowId}', [PosController::class, 'updateCartItem'])->name('pos.updateCartItem');
-    Route::delete('/pos/cart/delete/{rowId}', [PosController::class, 'deleteCartItem'])->name('pos.deleteCartItem');
+    Route::post('/pos/cart/update', [PosController::class, 'updateCartItem'])->name('pos.updateCartItem');
+    Route::delete('/pos/cart/delete', [PosController::class, 'deleteCartItem'])->name('pos.deleteCartItem');
 
     //Route::post('/pos/invoice', [PosController::class, 'createInvoice'])->name('pos.createInvoice');
     Route::post('invoice/create/', [InvoiceController::class, 'create'])->name('invoice.create');
