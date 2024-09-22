@@ -1,8 +1,11 @@
 @extends('layouts.tabler')
 
 @section('content')
+<div class="alert"></div>
 <div class="page-body">
     <div class="container-xl">
+        <!-- Below div is for the alert to show here  -->
+        <div id="alert-container" class="d-none"> this is alert </div>
         <div class="row row-cards">
             <div class="col-lg-7">
                 <div class="card">
@@ -196,25 +199,27 @@
     <script src="{{ asset('assets/js/img-preview.js') }}"></script>
     <script> 
         $(document).ready(function(){
-            console.log("this if Order Create Page ");
+            getCart("NO Alert");  // This will get the cart at page loading .
+
+            // console.log("this if Order Create Page ");
             $('#productTable').DataTable({
                 "paging": true,        // Enable pagination
                 "searching": true,     // Enable search bar
                 "ordering": true,      // Enable column-based sorting
                 "responsive": true     // Make the table responsive
             });
-            getCart();  // This will get the cart at page loading .
+            
             $(document).on("submit", "#addCartItemForm", function(e){
                 e.preventDefault();
-                console.log("Button is clided ");
+                // console.log("Button is clided ");
                 let formData = $(this).serialize();
                 $.ajax({
                     url: "{{ route('pos.addCartItem') }}",
                     method : 'post',
                     data : formData,
                     success : function(response){
-                        console.log("Cart response is success : " , response);
-                        getCart();
+                        // console.log("Cart response is success : " , response);
+                        getCart(response.message);
                     },
                     error: function(xhr,status,error){
                         console.log("Error Occured : " + error);
@@ -235,7 +240,9 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token if needed
                     },
                     success : function(response){
-                        getCart();
+                        console.log(response);
+                        
+                        getCart(response.message);
                         if(!response.success) 
                             alert("There is no more stock of this Item");
                     },
@@ -255,7 +262,7 @@
                     success : function(response){
                         console.log("Deleted Successfully " , response);
                         if(response.success)
-                            getCart();
+                            getCart(response.message);
                         else 
                             alert('There is something Wrong Cannot delete it');
                     },
@@ -266,18 +273,34 @@
                 });   
             });
 
-            function getCart(){
+            function getCart(message){
                 $.ajax({
                     url: "{{route('pos.cartItem')}}",
                     method : 'get',
                     success: function(response){
-                        // console.log(response);
                         $('#cartItemTbody').html(response);
+                        successAlert(message);
                     },
                     error:function(xhr, status,error){
                         console.log("Error is : " + error);
                     }
                 });
+            }
+            function successAlert(message){
+                console.log("success " + message);
+                let successComponent  =  $('#alert-container');
+                var alertHtml = `
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <h3 class="mb-1">Success</h3>
+                    <p>${message}</p>
+                    <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+                </div>`;
+                       
+                successComponent.html(alertHtml);
+                successComponent.removeClass('d-none');
+                setTimeout(() => {
+                   successComponent.addClass('d-none');
+                }, 3000);
             }
         });
     </script>

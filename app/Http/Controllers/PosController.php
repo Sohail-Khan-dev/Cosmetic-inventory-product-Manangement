@@ -45,7 +45,7 @@ class PosController extends Controller
             1,
             (array)$options = null
         );
-        return response()->json(['success',true, "productAdded"=>$productAddedToCart]);
+        return response()->json(['success',true, "productAdded"=>$productAddedToCart,'message'=>'Product has been added to cart!']);
         // return redirect()
         //     ->back()
         //     ->with('success', 'Product has been added to cart!');
@@ -62,7 +62,7 @@ class PosController extends Controller
         
         $validatedData = $request->validate($rules);
         if ($validatedData['qty'] > Product::where('id', intval($validatedData['product_id']))->value('quantity')) {
-            return response()->json(['success'=>false]);
+            return response()->json(['success'=>false,'message'=>'The requested quantity is not available in stock.']);
                 // above line is added as we will update this with Javascript 
             // return redirect()
             // ->back()
@@ -71,7 +71,7 @@ class PosController extends Controller
         
 
         Cart::update($rowId, $validatedData['qty']);
-        return response()->json(['success'=>true]);
+        return response()->json(['success'=>true, 'message'=>'Product has been updated from cart!']);
         // above line is added as we will update this with Javascript 
         // return redirect()
         //     ->back()
@@ -83,7 +83,7 @@ class PosController extends Controller
         // dd($request->all());
         $rowId = $request->rowId;
        $result =  Cart::remove($rowId);
-        return response()->json(['success'=>true, "result"=>$result]); 
+        return response()->json(['success'=>true, "result"=>$result, 'message'=>'Product has been deleted from cart!']); 
 
         return redirect()
             ->back()
