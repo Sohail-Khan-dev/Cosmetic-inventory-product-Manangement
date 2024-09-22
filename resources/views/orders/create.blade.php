@@ -1,7 +1,6 @@
 @extends('layouts.tabler')
 
 @section('content')
-<div class="alert"></div>
 <div class="page-body">
     <div class="container-xl">
         <!-- Below div is for the alert to show here  -->
@@ -199,7 +198,7 @@
     <script src="{{ asset('assets/js/img-preview.js') }}"></script>
     <script> 
         $(document).ready(function(){
-            getCart("NO Alert");  // This will get the cart at page loading .
+            getCart("");  // This will get the cart at page loading .
 
             // console.log("this if Order Create Page ");
             $('#productTable').DataTable({
@@ -217,8 +216,11 @@
                     url: "{{ route('pos.addCartItem') }}",
                     method : 'post',
                     data : formData,
+                    beforeSend: function(){
+                        $("#loadingModal").modal("show");
+                    },
                     success : function(response){
-                        // console.log("Cart response is success : " , response);
+                        $("#loadingModal").modal("hide");
                         getCart(response.message);
                     },
                     error: function(xhr,status,error){
@@ -236,12 +238,14 @@
                     url: "{{ route('pos.updateCartItem') }}",
                     method : 'post',
                     data : formData,
+                    beforeSend:function(){
+                        $("#loadingModal").modal("show");
+                    },
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Add CSRF token if needed
                     },
                     success : function(response){
-                        console.log(response);
-                        
+                        $("#loadingModal").modal("hide");
                         getCart(response.message);
                         if(!response.success) 
                             alert("There is no more stock of this Item");
@@ -277,9 +281,14 @@
                 $.ajax({
                     url: "{{route('pos.cartItem')}}",
                     method : 'get',
+                    beforeSend:function(){
+                        $("#loadingModal").modal("show");
+                    },
                     success: function(response){
+                        $("#loadingModal").modal("hide");
                         $('#cartItemTbody').html(response);
-                        successAlert(message);
+                        if(message != "" || message != undefined)
+                            successAlert(message);
                     },
                     error:function(xhr, status,error){
                         console.log("Error is : " + error);
@@ -287,7 +296,7 @@
                 });
             }
             function successAlert(message){
-                console.log("success " + message);
+                // console.log("success " + message);
                 let successComponent  =  $('#alert-container');
                 var alertHtml = `
                 <div class="alert alert-success alert-dismissible" role="alert">

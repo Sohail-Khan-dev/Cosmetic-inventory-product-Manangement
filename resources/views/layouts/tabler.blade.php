@@ -15,6 +15,7 @@
     <link href="{{ asset('dist/css/tabler-payments.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('dist/css/tabler-vendors.min.css') }}" rel="stylesheet" />
     <link href="{{ asset('dist/css/demo.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('dist/css/animation.css') }}" rel="stylesheet" />
     <!-- DataTables CSS -->
     <link href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" rel="stylesheet">
 
@@ -568,6 +569,23 @@
                     </div>
                 </div> -->
             </footer>
+        </div>
+        <div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content m-8">
+                <div class="modal-body text-center">
+                    <div class="d-flex align-items-center justify-content-center gap-3">
+                        <h1 style="color: #3a99d9;" class="px-1">Loading </h1>
+                        <div class="loading-balls py-3">
+                            <div class="ball"></div>
+                            <div class="ball"></div>
+                            <div class="ball"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 

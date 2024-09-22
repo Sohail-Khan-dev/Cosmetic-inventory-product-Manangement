@@ -75,6 +75,18 @@
                         </a>
                     </th>
                     <th scope="col" class="align-middle text-center">
+                        <a wire:click.prevent="sortBy('total')" href="#" role="button">
+                            {{ __('Payed') }}
+                           
+                        </a>
+                    </th>
+                    <th scope="col" class="align-middle text-center">
+                        <a wire:click.prevent="sortBy('total')" href="#" role="button">
+                            {{ __('Due') }}
+                           
+                        </a>
+                    </th>
+                    <th scope="col" class="align-middle text-center">
                         <a wire:click.prevent="sortBy('order_status')" href="#" role="button">
                             {{ __('Status') }}
                             @include('inclues._sort-icon', ['field' => 'order_status'])
@@ -104,7 +116,13 @@
                             {{ $order->payment_type }}
                         </td>
                         <td class="align-middle text-center">
-                            {{ Number::currency($order->total, 'EUR') }}
+                            {{ Number::currency($order->total) }}
+                        </td>
+                        <td class="align-middle text-center">
+                            {{ Number::currency($order->pay) }}
+                        </td>
+                        <td class="align-middle text-center">
+                            {{ Number::currency($order->due) }}
                         </td>
                         <td class="align-middle text-center">
                             <x-status dot
@@ -132,6 +150,13 @@
                 @endforelse
             </tbody>
         </table>
+        @if($orders->count() > 0)
+            <div class="text-center">
+                <h4>Total Amount : {{$total_amount}} </h4>
+                <h4 class="text-primary">Total payed : {{$total_pay}} </h4>
+                <h4 class="text-danger">Total due : {{$total_due}} </h4>
+            </div> 
+            @endif
     </div>
 
     <div class="card-footer d-flex align-items-center">

@@ -33,12 +33,20 @@ class OrderTable extends Component
 
     public function render()
     {
+        $orders_query = Order::where("user_id",auth()->id())
+            ->with(['customer', 'details'])
+            ->search($this->search)
+            ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
+        $total_amount = $orders_query->sum('total');
+        $total_pay = $orders_query->sum('pay');
+        $total_due = $orders_query->sum("due");
+
         return view('livewire.tables.order-table', [
-            'orders' => Order::where("user_id",auth()->id())
-                ->with(['customer', 'details'])
-                ->search($this->search)
-                ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc')
-                ->paginate($this->perPage)
+            'orders' => $orders_query                
+                ->paginate($this->perPage),
+                'total_amount' => $total_amount,
+                'total_pay' => $total_pay,
+                'total_due' => $total_due
         ]);
     }
 }
