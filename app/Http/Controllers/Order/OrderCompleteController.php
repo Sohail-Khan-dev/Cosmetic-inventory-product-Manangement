@@ -15,9 +15,14 @@ class OrderCompleteController extends Controller
             ->latest()
             ->with('customer')
             ->get();
-
+        $total_amount = $orders->sum('total');
+        $total_pay = $orders->sum('pay');
+        $total_due = $orders->sum("due");
         return view('orders.complete-orders', [
-            'orders' => $orders
+            'orders' => $orders,
+            'total_amount' => $total_amount,
+            'total_pay' => $total_pay,
+            'total_due' => $total_due
         ]);
     }
 }

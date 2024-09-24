@@ -116,13 +116,13 @@
                             {{ $order->payment_type }}
                         </td>
                         <td class="align-middle text-center">
-                            {{ Number::currency($order->total) }}
+                            {{ $order->total }}
                         </td>
                         <td class="align-middle text-center">
-                            {{ Number::currency($order->pay) }}
+                            {{ $order->pay }}
                         </td>
                         <td class="align-middle text-center">
-                            {{ Number::currency($order->due) }}
+                            {{ $order->due }}
                         </td>
                         <td class="align-middle text-center">
                             <x-status dot

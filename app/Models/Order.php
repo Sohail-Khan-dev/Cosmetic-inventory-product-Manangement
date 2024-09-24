@@ -54,6 +54,13 @@ class Order extends Model
             ->orWhereHas('customer', function($q) use ($value) {
                 $q->where('name', 'like', "%{$value}%");
             });
+             // Check if the search value matches any OrderStatus label
+            foreach (\App\Enums\OrderStatus::cases() as $status) {
+                if (stripos($status->label(), $value) !== false) {
+                    $query->orWhere('order_status', $status->value);
+                }
+            }
+            ;
     }
 
      /**

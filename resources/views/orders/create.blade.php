@@ -222,6 +222,7 @@
                     success : function(response){
                         $("#loadingModal").modal("hide");
                         getCart(response.message);
+                        $(".add-list").removeClass('disabled')
                     },
                     error: function(xhr,status,error){
                         console.log("Error Occured : " + error);

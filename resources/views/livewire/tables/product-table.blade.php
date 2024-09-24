@@ -7,6 +7,9 @@
         </div>
 
         <div class="card-actions btn-group">
+        <a href="{{ route('products.create') }}" class="btn btn-icon btn-outline-success">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M12 5l0 14"></path><path d="M5 12l14 0"></path></svg>
+        </a>
             <div class="dropdown">
                 <a href="#" class="btn-action dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
@@ -63,9 +66,9 @@
                     <th class="align-middle text-center w-1">
                         {{ __('No.') }}
                     </th>
-                    <th scope="col" class="align-middle text-center">
+                    <!-- <th scope="col" class="align-middle text-center">
                         {{ __('Image') }}
-                    </th>
+                    </th> -->
                     <th scope="col" class="align-middle text-center">
                         <a wire:click.prevent="sortBy('name')" href="#" role="button">
                             {{ __('Name') }}
@@ -91,6 +94,12 @@
                         </a>
                     </th>
                     <th scope="col" class="align-middle text-center">
+                            {{ __('Buying Price') }}
+                    </th>
+                    <th scope="col" class="align-middle text-center">
+                            {{ __('Selling Price') }}
+                    </th>
+                    <th scope="col" class="align-middle text-center">
                         {{ __('Action') }}
                     </th>
                 </tr>
@@ -101,11 +110,11 @@
                         <td class="align-middle text-center">
                             {{ $loop->iteration }}
                         </td>
-                        <td class="align-middle text-center">
+                        <!-- <td class="align-middle text-center">
                             <img style="width: 90px;"
                                 src="{{ $product->product_image ? asset('storage/' . $product->product_image) : asset('assets/img/products/default.webp') }}"
                                 alt="">
-                        </td>
+                        </td> -->
                         <td class="align-middle text-center">
                             {{ $product->name }}
                         </td>
@@ -117,6 +126,12 @@
                         </td>
                         <td class="align-middle text-center">
                             {{ $product->quantity }}
+                        </td>
+                        <td class="align-middle text-center">
+                            {{ $product->buying_price }}
+                        </td>
+                        <td class="align-middle text-center">
+                            {{ $product->selling_price }}
                         </td>
                         <td class="align-middle text-center" style="width: 10%">
                             <x-button.show class="btn-icon" route="{{ route('products.show', $product->id) }}" />
@@ -147,3 +162,8 @@
         </ul>
     </div>
 </div>
+<script>
+    // $(document).ready({
+
+    // });
+</script>

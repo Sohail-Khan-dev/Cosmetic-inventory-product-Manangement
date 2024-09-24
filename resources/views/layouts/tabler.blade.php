@@ -587,6 +587,17 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="commonModal" tabindex="-1" aria-labelledby="commonModal" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content m-8">
+                <div class="modal-body text-center">
+                   <div id="modalHtml">
+
+                   </div> 
+                </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Libs JS -->
