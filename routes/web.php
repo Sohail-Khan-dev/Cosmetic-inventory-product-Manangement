@@ -124,6 +124,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::get('/quotations/{quotation}/edit', [QuotationController::class, 'edit'])->name('quotations.edit');
     Route::post('/quotations/complete/{quotation}', [QuotationController::class, 'update'])->name('quotations.update');
     Route::delete('/quotations/delete/{quotation}', [QuotationController::class, 'destroy'])->name('quotations.delete');
+
+    // Routes Created New for Product Management  
+    Route::get('product/show', [ProductController::class,'showproduct']);
 });
 
 require __DIR__.'/auth.php';

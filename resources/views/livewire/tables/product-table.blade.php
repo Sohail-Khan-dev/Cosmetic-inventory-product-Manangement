@@ -166,8 +166,20 @@
 <script>
      $wire.on('openModal', (product,pageToInclude) => {
         console.log("Here it is " , product, pageToInclude);
-
-        fetch(pageToInclude)
+        $.ajax({
+            url : pageToInclude,
+            method: 'get',
+            data :{
+                'product' : product,
+            },
+            success: function(response){
+                console.log( " Response is : " + response); 
+                document.getElementById('modalContent').innerHTML = response;
+                $("#productModal").modal('show');
+            }
+        });
+        return;
+        fetch('/products/create')
         .then(response => response.text())
         .then(content => {
             document.getElementById('modalContent').innerHTML = content;

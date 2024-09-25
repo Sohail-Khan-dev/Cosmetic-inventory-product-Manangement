@@ -54,7 +54,7 @@ class ProductTable extends Component
         // $this->modalLabel = "Product Detail";
         // $this->viewTemplate = 'Products.show';
         // First one is the function name and others are the parameteres 
-        $this->dispatch('openModal',$product,route('product.show'));
+        $this->dispatch('openModal',$product,"product/show");
 
     }
 
