@@ -94,6 +94,11 @@ class ProductController extends Controller
             'barcode' => $barcode,
         ]);
     }
+    // Below function is for the modal shown in the product section 
+    public function showproduct (Request $request, $product){
+        dump( "Show Product function is Called ");
+        
+    }
 
     public function edit($uuid)
     {
