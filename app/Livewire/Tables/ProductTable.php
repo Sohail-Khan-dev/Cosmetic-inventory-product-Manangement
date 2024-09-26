@@ -18,11 +18,6 @@ class ProductTable extends Component
 
     public $sortAsc = false;
 
-    public $modalLabel = "empty";
-
-    public $viewTemplate = "empty";
-
-    public $selectedProduct = null;  // Store the selected product
 
     public $showModal = false;
     public function sortBy($field): void
@@ -50,11 +45,7 @@ class ProductTable extends Component
         $product->delete();
     }
     public function viewProduct($product){
-        // $this->selectedProduct = $product;
-        // $this->modalLabel = "Product Detail";
-        // $this->viewTemplate = 'Products.show';
-        // First one is the function name and others are the parameteres 
-        $this->dispatch('openModal',$product,"product/show");
+       $this->dispatch('openModal',$product,"product/show");
 
     }
 

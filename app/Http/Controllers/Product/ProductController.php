@@ -96,8 +96,9 @@ class ProductController extends Controller
     }
     // Below function is for the modal shown in the product section 
     public function showproduct (Request $request){
-        // dump( "Show Product function is Called ", $request->product);
-        return view('products.show',['product' => $request->product]);
+        $product = $request->product;
+        $product_content = view('products.show',['product' => $product, 'barcode'=>'car'])->render();
+        return response()->json(["product"=>$product_content]);
     }
 
     public function edit($uuid)

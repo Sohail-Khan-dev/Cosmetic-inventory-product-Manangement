@@ -135,7 +135,8 @@
                                 {{ $product->selling_price }}
                             </td>
                             <td class="align-middle text-center" style="width: 10%">
-                                <x-button type="button" class="btn-icon btn btn-outline-info" wire:click="viewProduct({{$product}})" >  <x-icon.eye/> </x-button>
+ 
+                                <x-button type="button" class="btn-icon btn btn-outline-info view-product" id="view-product" data-page="product/show" data-product="{{$product}} ">  <x-icon.eye/> </x-button>
                                 <x-button type="button" class="btn-icon btn btn-outline-warning" wire:click="editProduct({{$product}})" >  <x-icon.pencil/> </x-button>
                                 <x-button type="button" class="btn-icon btn btn-outline-danger" wire:click="deleteProduct({{$product->id}})" ><x-icon.trash/> </x-button>
                             </td>
@@ -164,30 +165,34 @@
 </div>
 @script('scripts')
 <script>
-     $wire.on('openModal', (product,pageToInclude) => {
-        console.log("Here it is " , product, pageToInclude);
+     
+    //  $wire.on('openModal', (product,pageToInclude) => {
+    $(document).on('click', ".view-product" , function(e){
+        e.preventDefault();
+        // console.log("view Button is Clicked");
+        let product = $(this).data('product');
+        let page_url = $(this).data('page');
+        // console.log(page_url ," Product : " , product);
+        
         $.ajax({
-            url : pageToInclude,
+            url :page_url,
             method: 'get',
             data :{
                 'product' : product,
             },
+            beforeSend: function(){
+                $("#loadingModal").modal('show');
+            },
             success: function(response){
-                console.log( " Response is : " + response); 
-                document.getElementById('modalContent').innerHTML = response;
+                $("#loadingModal").modal('hide');
+                console.log( " Response is : " , response); 
+                document.getElementById('modalContent').innerHTML = response.product;
+                $("#modalTitle").text("Product Detail");
+                $("#modal-save-btn").hide();
                 $("#productModal").modal('show');
             }
         });
-        return;
-        fetch('/products/create')
-        .then(response => response.text())
-        .then(content => {
-            document.getElementById('modalContent').innerHTML = content;
-            $("#productModal").modal('show');
-        })
-        .catch(error => {
-            console.error('Error fetching content:', error);
-        });
+    
     });
   
 </script>
