@@ -55,6 +55,8 @@
                             aria-label="Search invoice">
                     </div>
                 </div>
+                <button class="d-none" id="refresh-product" wire:click="$refresh">Refresh</button>
+                <input type="hidden" wire:click>
             </div>
         </div>
 
@@ -182,8 +184,6 @@
         setAndShowModal(product,page_url,page_title);  
     });
     function setAndShowModal(product,page_url,page_title){
-        console.log(page_title, page_url);
-        
         $.ajax({
             url :page_url,
             method: 'get',
@@ -195,7 +195,7 @@
             },
             success: function(response){
                 $("#loadingModal").modal('hide');
-                console.log( " Response is : " , response); 
+                // console.log( " Response is : " , response); 
                 document.getElementById('modalContent').innerHTML = response.product;
                 $("#modalTitle").text(page_title);
                 $("#modal-save-btn").hide();
@@ -203,6 +203,34 @@
             }
         });
     }
-  
+    $(document).on('submit','#update-product' , function(e){
+        console.log("Update button is clicked");
+        e.preventDefault();
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        var formData = new FormData(this); // Get the form data
+        formData.append('_token', csrfToken);
+        // formData.append('_token', $('meta[name="csrf-token"]').attr('content')); // Add CSRF token to the form data
+        $.ajax({
+            url: 'product/update', // The URL to send the request to
+            type: 'post', // The request type
+            data: formData, // The form data
+            processData: false, // Important for file uploads
+            contentType: false, // Important for file uploads
+            beforeSend: function(){
+                $("#loadingModal").modal('show');
+            },
+            success: function(response) {
+                $("#loadingModal").modal('hide');
+                console.log('Product updated successfully!');
+                $('#refresh-product').click();
+                $("#productModal").modal('hide');
+            },
+            error: function(xhr, status, error) {
+                // Handle the error response
+                console.log('Error updating the product: ' + error);
+            }
+        });
+        
+    });
 </script>
 @endscript

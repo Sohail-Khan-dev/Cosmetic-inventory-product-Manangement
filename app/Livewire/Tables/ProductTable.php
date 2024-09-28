@@ -44,10 +44,7 @@ class ProductTable extends Component
         }
         $product->delete();
     }
-    public function viewProduct($product){
-       $this->dispatch('openModal',$product,"product/show");
 
-    }
 
     public function render()
     {

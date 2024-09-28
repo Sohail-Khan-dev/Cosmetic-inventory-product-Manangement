@@ -128,6 +128,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Routes Created New for Product Management  
     Route::get('product/show', [ProductController::class,'showProduct']);
     Route::get('product/edit', [ProductController::class,'editProduct']);
+    Route::put('product/update', [ProductController::class, 'update']);
 });
 
 require __DIR__.'/auth.php';

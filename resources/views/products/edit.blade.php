@@ -1,10 +1,8 @@
 <div class="container-xl">
     <div class="row row-cards">
-
-        <form action="">
-            @csrf
-            <!-- @method('put') -->
-
+        <form id="update-product">
+            @method('put')
+            <input type="hidden" name="id" id="id" value=" {{ @$product['id'] }} ">
             <div class="row">
                 <div class="col">
                     <div class="card">

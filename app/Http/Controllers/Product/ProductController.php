@@ -107,9 +107,6 @@ class ProductController extends Controller
         $product_content = view('products.edit', ['product'=>$product,'barcode'=>'code', 'categories'=>$categories, 'units'=>$units] )->render();
         return response()->json(['product'=>$product_content]);
     }
-    public function updateProduct($product) {
-        dd($product);
-    }
 
     public function edit($uuid)
     {
@@ -121,9 +118,9 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update(UpdateProductRequest $request, $uuid)
+    public function update(UpdateProductRequest $request)
     {
-        $product = Product::where("uuid", $uuid)->firstOrFail();
+        $product = Product::where("id", $request->id)->firstOrFail();
         $product->update($request->except('product_image'));
 
         $image = $product->product_image;
@@ -151,9 +148,9 @@ class ProductController extends Controller
         $product->save();
 
 
-        return redirect()
-            ->route('products.index')
-            ->with('success', 'Product has been updated!');
+        // return redirect()
+        //     ->route('products.index')
+        //     ->with('success', 'Product has been updated!');
     }
 
     public function destroy($uuid)
