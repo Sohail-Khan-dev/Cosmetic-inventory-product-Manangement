@@ -95,10 +95,20 @@ class ProductController extends Controller
         ]);
     }
     // Below function is for the modal shown in the product section 
-    public function showproduct (Request $request){
+    public function showProduct (Request $request){
         $product = $request->product;
         $product_content = view('products.show',['product' => $product, 'barcode'=>'car'])->render();
         return response()->json(["product"=>$product_content]);
+    }
+    public function editProduct(Request $request){
+        $product = $request->product;
+        $categories = Category::all();
+        $units = Unit::all();
+        $product_content = view('products.edit', ['product'=>$product,'barcode'=>'code', 'categories'=>$categories, 'units'=>$units] )->render();
+        return response()->json(['product'=>$product_content]);
+    }
+    public function updateProduct($product) {
+        dd($product);
     }
 
     public function edit($uuid)

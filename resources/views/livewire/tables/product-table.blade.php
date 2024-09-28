@@ -137,7 +137,7 @@
                             <td class="align-middle text-center" style="width: 10%">
  
                                 <x-button type="button" class="btn-icon btn btn-outline-info view-product" id="view-product" data-page="product/show" data-product="{{$product}} ">  <x-icon.eye/> </x-button>
-                                <x-button type="button" class="btn-icon btn btn-outline-warning" wire:click="editProduct({{$product}})" >  <x-icon.pencil/> </x-button>
+                                <x-button type="button" class="btn-icon btn btn-outline-warning edit-product" data-page="product/edit" id="edit-product" data-product="{{$product}}" >  <x-icon.pencil/> </x-button>
                                 <x-button type="button" class="btn-icon btn btn-outline-danger" wire:click="deleteProduct({{$product->id}})" ><x-icon.trash/> </x-button>
                             </td>
                         </tr>
@@ -167,12 +167,22 @@
 <script>
      
     //  $wire.on('openModal', (product,pageToInclude) => {
-    $(document).on('click', ".view-product" , function(e){
+    $(document).on('click', ".edit-product" , function(e){
         e.preventDefault();
-        // console.log("view Button is Clicked");
         let product = $(this).data('product');
         let page_url = $(this).data('page');
-        // console.log(page_url ," Product : " , product);
+        let page_title = "Edit Product";
+        setAndShowModal(product,page_url,page_title);
+    });
+    $(document).on('click', ".view-product" , function(e){
+        e.preventDefault();
+        let product = $(this).data('product');
+        let page_url = $(this).data('page');
+        let page_title = "Product Detail";
+        setAndShowModal(product,page_url,page_title);  
+    });
+    function setAndShowModal(product,page_url,page_title){
+        console.log(page_title, page_url);
         
         $.ajax({
             url :page_url,
@@ -187,13 +197,12 @@
                 $("#loadingModal").modal('hide');
                 console.log( " Response is : " , response); 
                 document.getElementById('modalContent').innerHTML = response.product;
-                $("#modalTitle").text("Product Detail");
+                $("#modalTitle").text(page_title);
                 $("#modal-save-btn").hide();
                 $("#productModal").modal('show');
             }
         });
-    
-    });
+    }
   
 </script>
 @endscript
