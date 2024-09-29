@@ -53,6 +53,6 @@
     </div>
 @endsection
 
-@push('page-scripts')
+<!-- @push('page-scripts')
     <script src="{{ asset('assets/js/img-preview.js') }}"></script>
-@endpush
+@endpush -->

@@ -146,6 +146,6 @@
     </div>
 @endsection
 
-@pushonce('page-scripts')
+<!-- @pushonce('page-scripts')
     <script src="{{ asset('assets/js/img-preview.js') }}"></script>
-@endpushonce
+@endpushonce -->

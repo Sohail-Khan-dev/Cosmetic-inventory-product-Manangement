@@ -53,13 +53,13 @@ class PosController extends Controller
 
     public function updateCartItem(Request $request)
     {
-        // dd($request->all());
         $rowId = $request->rowId;
         $rules = [
             'qty' => 'required|numeric',
-            'product_id' => 'numeric'
+            'product_id' => 'numeric',
+            'price' => 'numeric',
         ];
-        
+        // dd($request->all());
         $validatedData = $request->validate($rules);
         if ($validatedData['qty'] > Product::where('id', intval($validatedData['product_id']))->value('quantity')) {
             return response()->json(['success'=>false,'message'=>'The requested quantity is not available in stock.']);
@@ -70,7 +70,7 @@ class PosController extends Controller
         }
         
 
-        Cart::update($rowId, $validatedData['qty']);
+        Cart::update($rowId, $validatedData['qty'],$validatedData['price']);
         return response()->json(['success'=>true, 'message'=>'Product has been updated from cart!']);
         // above line is added as we will update this with Javascript 
         // return redirect()
@@ -92,6 +92,7 @@ class PosController extends Controller
     // This function will return the view of Tbody along with total, count etc of Table .
     public function getCart() {
         $carts = Cart::content();
+        // dd($carts);
         return view('orders.cart-items',compact('carts'));
     }
 }

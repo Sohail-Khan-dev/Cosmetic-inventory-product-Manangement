@@ -195,7 +195,6 @@
 @endsection
 
 @pushonce('page-scripts')
-    <script src="{{ asset('assets/js/img-preview.js') }}"></script>
     <script> 
         $(document).ready(function(){
             getCart("");  // This will get the cart at page loading .
@@ -231,7 +230,9 @@
             });
        
             // For updatting the Quanity of the Cart itemd
-            $(document).on("click", ".updateQuantityForm button[type='button']", function(e){
+            $(document).on("click", ".updateButton", function(e){
+                console.log("clicked on Update Quantity form ");
+                
                 e.preventDefault();
                 let form = $(this).closest('form'); 
                 let formData = form.serialize();
@@ -256,7 +257,7 @@
                     }
                 });
             });
-            $(document).on('click', ".deleteCartItem  button[type='button']" , function(e){
+            $(document).on('click', ".deleteCartItem .updateButton" , function(e){
                 e.preventDefault();
                 let form = $(this).closest('form'); 
                 let formData = form.serialize();
@@ -264,8 +265,11 @@
                     url: "{{ route('pos.deleteCartItem') }}",
                     method: 'delete',
                     data : formData,
+                    beforeSend: function(){
+                        $("#loadingModal").modal("show");
+                    },
                     success : function(response){
-                        console.log("Deleted Successfully " , response);
+                        $("#loadingModal").modal("hide");
                         if(response.success)
                             getCart(response.message);
                         else 
@@ -288,6 +292,8 @@
                     success: function(response){
                         $("#loadingModal").modal("hide");
                         $('#cartItemTbody').html(response);
+                        // console.log(response);
+                        
                         if(message != "" || message != undefined)
                             successAlert(message);
                     },

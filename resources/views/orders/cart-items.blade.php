@@ -3,9 +3,8 @@
         <td>
             {{ $item->name }}
         </td>
-        <td style="min-width: 170px;">
-            <!-- <form></form> -->
-            <form class="updateQuantityForm" > 
+        <form class="updateQuantityForm"> 
+            <td style="min-width: 170px;">        
                 @csrf
                 <div class="input-group">
                     <input type="number" class="form-control" name="qty" required value="{{ old('qty', $item->qty) }}">
@@ -17,11 +16,12 @@
                         </button>
                     </div>
                 </div>
-            </form>
-        </td>
-        <td class="text-center">
-            {{ $item->price }}
-        </td>
+            </td>
+            <td class="text-center">
+                 <input type="number" class="form-control" name="price" step="0.1"  value="{{ $item->price }}">
+            </td>
+        </form>
+
         <td class="text-center">
             {{ $item->subtotal }}
         </td>

@@ -15,7 +15,7 @@ class OrderDetails extends Model
         'order_id',
         'product_id',
         'quantity',
-        'unitcost',
+        'unitcost',  // this is the selling price of the Poduct. 
         'total',
     ];
 
