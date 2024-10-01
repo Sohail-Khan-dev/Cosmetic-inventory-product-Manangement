@@ -31,7 +31,7 @@
                             @foreach ($allProducts as $product)
                                 <option value="{{ $product->id }}" class="text-center">
                                     {{ $product->name }}
-{{--                                    (${{ number_format($product->buying_price, 2) }})--}}
+    {{--                                    (${{ number_format($product->buying_price, 2) }})--}}
                                 </option>
                             @endforeach
                         </select>
@@ -65,11 +65,16 @@
                 <td class="align-middle text-center">
                     @if($invoiceProduct['is_saved'])
                         {{ $unit_cost = number_format($invoiceProduct['product_price'], 2) }}
-
                         <input type="hidden"
                                name="invoiceProducts[{{$index}}][unitcost]"
                                value="{{ $unit_cost }}"
                         >
+                    @else
+                        <input type="number"
+                            wire:model="product_buying_price"
+                            id="invoiceProducts[{{$index}}][unitcost]"
+                            class="form-control"
+                        />
                     @endif
                 </td>
 
@@ -115,7 +120,7 @@
                     Subtotal
                 </th>
                 <td class="text-center">
-{{--                    ${{ number_format($subtotal, 2) }}--}}
+    {{--                    ${{ number_format($subtotal, 2) }}--}}
                     {{ Number::currency($subtotal, 'EUR') }}
                 </td>
             </tr>

@@ -58,6 +58,7 @@
                                         name="supplier_id"
                                         placeholder="Select Supplier"
                                         :data="$suppliers"
+                                        required
                                     />
 
                                     <div class="col-md-4">

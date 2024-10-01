@@ -17,7 +17,7 @@ class PurchaseForm extends Component
 
     #[Validate('required', message: 'Please select products')]
     public Collection $allProducts;
-
+    public $product_buying_price = 0 ;
     public function mount(): void
     {
         $this->allProducts = Product::where("user_id",auth()->id())->get();
@@ -26,7 +26,6 @@ class PurchaseForm extends Component
     public function render(): View
     {
         $total = 0;
-
         foreach ($this->invoiceProducts as $invoiceProduct)
         {
             if ($invoiceProduct['is_saved'] && $invoiceProduct['product_price'] && $invoiceProduct['quantity'])
@@ -82,8 +81,9 @@ class PurchaseForm extends Component
         $product = $this->allProducts->find($this->invoiceProducts[$index]['product_id']);
 
         $this->invoiceProducts[$index]['product_name'] = $product->name;
-        $this->invoiceProducts[$index]['product_price'] = $product->buying_price;
+        $this->invoiceProducts[$index]['product_price'] = $this->product_buying_price;
         $this->invoiceProducts[$index]['is_saved'] = true;
+        $this->product_buying_price = 0 ;
     }
 
     public function removeProduct($index): void

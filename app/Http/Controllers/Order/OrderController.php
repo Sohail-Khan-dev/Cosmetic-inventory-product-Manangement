@@ -103,6 +103,7 @@ class OrderController extends Controller
 
     public function update($uuid, Request $request)
     {
+        // dd($request->all());
         $order = Order::where('uuid', $uuid)->firstOrFail();
         // TODO refactoring
 
@@ -127,15 +128,30 @@ class OrderController extends Controller
             }
             Mail::to($listAdmin)->send(new StockAlert($stockAlertProducts));
         }
-        $order->update([
-            'order_status' => OrderStatus::COMPLETE,
-            'due' => '0',
-            'pay' => $order->total
-        ]);
-
-        return redirect()
+        // dd($order , $request->pay );
+       $payNow = $request->pay;
+       $total_payed = $order->pay + $payNow;
+    //    dd($payNow, $total_payed);
+       if($order->due == $payNow){
+            $order->update([
+                'order_status' => OrderStatus::COMPLETE,
+                'due' => '0',
+                'pay' => $order->total
+            ]);
+            return redirect()
             ->route('orders.complete')
             ->with('success', 'Order has been completed!');
+        }else{
+            $order->update([
+                'order_status' => OrderStatus::PENDING,
+                'due' => $order->total - $total_payed,
+                'pay' => $total_payed
+            ]);
+        }
+
+        return redirect()
+            ->route('orders.pending')
+            ->with('', 'Order is not completed yet!');
     }
 
     public function destroy($uuid)

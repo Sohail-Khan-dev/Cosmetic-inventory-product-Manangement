@@ -37,9 +37,12 @@ class OrderTable extends Component
             ->with(['customer', 'details'])
             ->search($this->search)
             ->orderBy($this->sortField, $this->sortAsc ? 'asc' : 'desc');
-        $total_amount = $orders_query->sum('total');
-        $total_pay = $orders_query->sum('pay');
-        $total_due = $orders_query->sum("due");
+            $filtered_orders_query = (clone $orders_query)
+            ->whereIn('order_status', [0, 1]);
+    
+        $total_amount = $filtered_orders_query->sum('total');
+        $total_pay = $filtered_orders_query->sum('pay');
+        $total_due = $filtered_orders_query->sum("due");
 
         return view('livewire.tables.order-table', [
             'orders' => $orders_query                

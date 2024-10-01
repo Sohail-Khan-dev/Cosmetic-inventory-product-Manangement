@@ -257,7 +257,7 @@
                     }
                 });
             });
-            $(document).on('click', ".deleteCartItem .updateButton" , function(e){
+            $(document).on('click', ".deleteCartItem" , function(e){
                 e.preventDefault();
                 let form = $(this).closest('form'); 
                 let formData = form.serialize();

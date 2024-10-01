@@ -10,22 +10,20 @@
                     <input type="number" class="form-control" name="qty" required value="{{ old('qty', $item->qty) }}">
                     <input type="hidden" class="form-control" name="product_id" value="{{ $item->id }}">
                     <input type="hidden" name="rowId" value="{{$item->rowId}}">
-                    <div class="input-group-append text-center">
-                        <button type="button" class="btn btn-icon btn-success border-none updateButton" >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
-                        </button>
-                    </div>
                 </div>
             </td>
             <td class="text-center">
                  <input type="number" class="form-control" name="price" step="0.1"  value="{{ $item->price }}">
             </td>
-        </form>
 
         <td class="text-center">
             {{ $item->subtotal }}
         </td>
-        <td class="text-center">
+        <td class="text-center d-flex gap-2">
+            <button type="button" class="btn btn-icon btn-success border-none updateButton" >
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-check" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l5 5l10 -10" /></svg>
+            </button>
+        </form>
             <form class="deleteCartItem"> 
                 <!-- // action="{{ route('pos.deleteCartItem') }}" method="POST"> -->
                 <!-- @method('delete') -->

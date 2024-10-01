@@ -94,7 +94,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col" class="align-middle text-center">No.</th>
-                                    <th scope="col" class="align-middle text-center">Photo</th>
+                                    <!-- <th scope="col" class="align-middle text-center">Photo</th> -->
                                     <th scope="col" class="align-middle text-center">Product Name</th>
                                     <th scope="col" class="align-middle text-center">Product Code</th>
                                     <th scope="col" class="align-middle text-center">Quantity</th>
@@ -108,12 +108,12 @@
                                         <td class="align-middle text-center">
                                             {{ $loop->iteration }}
                                         </td>
-                                        <td class="align-middle text-center">
+                                        <!-- <td class="align-middle text-center">
                                             <div style="max-height: 80px; max-width: 80px;">
                                                 <img class="img-fluid"
                                                     src="{{ $item->product->product_image ? asset('storage/' . $item->product->product_image) : asset('assets/img/products/default.webp') }}">
                                             </div>
-                                        </td>
+                                        </td> -->
                                         <td class="align-middle text-center">
                                             {{ $item->product->name }}
                                         </td>
@@ -124,33 +124,33 @@
                                             {{ $item->quantity }}
                                         </td>
                                         <td class="align-middle text-center">
-                                            {{ number_format($item->unitcost, 2) }}
+                                            {{ $item->unitcost }}
                                         </td>
                                         <td class="align-middle text-center">
-                                            {{ number_format($item->total, 2) }}
+                                            {{ $item->total }}
                                         </td>
                                     </tr>
                                 @endforeach
                                 <tr>
-                                    <td colspan="6" class="text-end">
+                                    <td colspan="5" class="text-end">
                                         Payed amount
                                     </td>
-                                    <td class="text-center">{{ number_format($order->pay, 2) }}</td>
+                                    <td class="text-center">{{ $order->pay }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="6" class="text-end">Due</td>
-                                    <td class="text-center">{{ number_format($order->due, 2) }}</td>
+                                    <td colspan="5" class="text-end">Due</td>
+                                    <td class="text-center">{{ $order->due }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="6" class="text-end">VAT</td>
-                                    <td class="text-center">{{ number_format($order->vat, 2) }}</td>
+                                    <td colspan="5" class="text-end">VAT</td>
+                                    <td class="text-center">{{ $order->vat }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="6" class="text-end">Total</td>
-                                    <td class="text-center">{{ number_format($order->total, 2) }}</td>
+                                    <td colspan="5" class="text-end">Total</td>
+                                    <td class="text-center">{{ $order->total }}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="6" class="text-end">Status</td>
+                                    <td colspan="5" class="text-end">Status</td>
                                     <td class="text-center">
                                         <x-status dot
                                             color="{{ $order->order_status === \App\Enums\OrderStatus::COMPLETE ? 'green' : ($order->order_status === \App\Enums\OrderStatus::PENDING ? 'orange' : '') }}"
@@ -158,6 +158,10 @@
                                             {{ $order->order_status->label() }}
                                         </x-status>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="text-end">Pay Now</td>
+                                    <td class="text-center"><input type="number" name='pay' class="pay-input" value="{{$order->due }}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -169,10 +173,11 @@
                         <form action="{{ route('orders.update', $order->uuid) }}" method="POST">
                             @method('put')
                             @csrf
-
-                            <button type="submit" class="btn btn-success"
-                                onclick="return confirm('Are you sure you want to complete this order?')">
-                                {{ __('Complete Order') }}
+                            <input type="hidden" name="pay" id="pay" value="">
+                            <button type="submit" class="btn btn-primary"
+                               
+                                >
+                                {{ __('Pay Order') }}
                             </button>
                         </form>
                     @endif
@@ -182,3 +187,22 @@
         </div>
     </div>
 @endsection
+
+@push('page-scripts')
+    <script>
+        setTimeout(() => {
+            console.log("{{$order->due}}");
+            let value = "{{$order->due}}";
+            setValueToPay(value);            
+        }, 1000);
+        $(document).on('input', '.pay-input', function() {
+            const newValue = $(this).val();
+            setValueToPay(newValue);
+        });
+        function setValueToPay(value){
+            console.log("Value is Changed " , value);
+            $('#pay').val(value);
+        }
+    </script>
+@endpush
+ 
