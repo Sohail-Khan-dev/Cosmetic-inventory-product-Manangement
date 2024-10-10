@@ -25,7 +25,7 @@ class Product extends Model
         // 'tax',
         // 'tax_type',
         'notes',
-        'product_image',
+//        'product_image',
         'category_id',
         'unit_id',
         'created_at',

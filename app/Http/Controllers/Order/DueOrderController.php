@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Mail\StockAlert;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class DueOrderController extends Controller
 {

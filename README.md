@@ -46,7 +46,7 @@ composer install
 
 ```bash
 
-cp .env.example .env
+cp .env .env
 
 ```
 

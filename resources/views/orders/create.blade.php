@@ -160,7 +160,7 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex">
-                                                    <form id="addCartItemForm"> 
+                                                    <form id="addCartItemForm">
                                                     <!-- <form action="{{ route('pos.addCartItem', $product) }}" method="POST"> -->
                                                         @csrf
                                                         <input type="hidden" name="id" value="{{ $product->id }}">
@@ -195,7 +195,7 @@
 @endsection
 
 @pushonce('page-scripts')
-    <script> 
+    <script>
         $(document).ready(function(){
             getCart("");  // This will get the cart at page loading .
 
@@ -206,7 +206,7 @@
                 "ordering": true,      // Enable column-based sorting
                 "responsive": true     // Make the table responsive
             });
-            
+
             $(document).on("submit", "#addCartItemForm", function(e){
                 e.preventDefault();
                 // console.log("Button is clided ");
@@ -228,13 +228,13 @@
                     }
                 });
             });
-       
+
             // For updatting the Quanity of the Cart itemd
             $(document).on("click", ".updateButton", function(e){
                 console.log("clicked on Update Quantity form ");
-                
+
                 e.preventDefault();
-                let form = $(this).closest('form'); 
+                let form = $(this).closest('form');
                 let formData = form.serialize();
                 $.ajax({
                     url: "{{ route('pos.updateCartItem') }}",
@@ -249,7 +249,7 @@
                     success : function(response){
                         $("#loadingModal").modal("hide");
                         getCart(response.message);
-                        if(!response.success) 
+                        if(!response.success)
                             alert("There is no more stock of this Item");
                     },
                     error: function(xhr,status,error){
@@ -259,7 +259,7 @@
             });
             $(document).on('click', ".deleteCartItem" , function(e){
                 e.preventDefault();
-                let form = $(this).closest('form'); 
+                let form = $(this).closest('form');
                 let formData = form.serialize();
                 $.ajax({
                     url: "{{ route('pos.deleteCartItem') }}",
@@ -272,17 +272,18 @@
                         $("#loadingModal").modal("hide");
                         if(response.success)
                             getCart(response.message);
-                        else 
+                        else
                             alert('There is something Wrong Cannot delete it');
                     },
                     error : function(xhr, status, error){
                         console.log("Error is : " , error);
-                        
+
                     }
-                });   
+                });
             });
 
             function getCart(message){
+                console.log("this is get card ");
                 $.ajax({
                     url: "{{route('pos.cartItem')}}",
                     method : 'get',
@@ -293,11 +294,12 @@
                         $("#loadingModal").modal("hide");
                         $('#cartItemTbody').html(response);
                         // console.log(response);
-                        
+
                         if(message != "" || message != undefined)
                             successAlert(message);
                     },
                     error:function(xhr, status,error){
+                        $("#loadingModal").modal("hide");
                         console.log("Error is : " + error);
                     }
                 });
@@ -311,7 +313,7 @@
                     <p>${message}</p>
                     <a class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
                 </div>`;
-                       
+
                 successComponent.html(alertHtml);
                 successComponent.removeClass('d-none');
                 setTimeout(() => {

@@ -10,38 +10,38 @@
                 @csrf
 
                 <div class="row">
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">
-                                    {{ __('Product Image') }}
-                                </h3>
+{{--                    <div class="col-lg-4">--}}
+{{--                        <div class="card">--}}
+{{--                            <div class="card-body">--}}
+{{--                                <h3 class="card-title">--}}
+{{--                                    {{ __('Product Image') }}--}}
+{{--                                </h3>--}}
 
-                                <img class="img-account-profile mb-2" src="{{ asset('assets/img/products/default.webp') }}" alt="" id="image-preview" />
+{{--                                <img class="img-account-profile mb-2" src="{{ asset('assets/img/products/default.webp') }}" alt="" id="image-preview" />--}}
 
-                                <div class="small font-italic text-muted mb-2">
-                                    JPG or PNG no larger than 2 MB
-                                </div>
+{{--                                <div class="small font-italic text-muted mb-2">--}}
+{{--                                    JPG or PNG no larger than 2 MB--}}
+{{--                                </div>--}}
 
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    id="image"
-                                    name="product_image"
-                                    class="form-control @error('product_image') is-invalid @enderror"
-                                    onchange="previewImage();"
-                                >
+{{--                                <input--}}
+{{--                                    type="file"--}}
+{{--                                    accept="image/*"--}}
+{{--                                    id="image"--}}
+{{--                                    name="product_image"--}}
+{{--                                    class="form-control @error('product_image') is-invalid @enderror"--}}
+{{--                                    onchange="previewImage();"--}}
+{{--                                >--}}
 
-                                @error('product_image')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
+{{--                                @error('product_image')--}}
+{{--                                <div class="invalid-feedback">--}}
+{{--                                    {{ $message }}--}}
+{{--                                </div>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                    <div class="col-lg-8">
+                    <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
                                 <div>
@@ -149,25 +149,25 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6">
-                                        <x-input type="number"
-                                                 label="Buying Price"
-                                                 name="buying_price"
-                                                 id="buying_price"
-                                                 placeholder="0"
-                                                 value="{{ old('buying_price') }}"
-                                        />
-                                    </div>
+{{--                                    <div class="col-sm-6 col-md-6">--}}
+{{--                                        <x-input type="number"--}}
+{{--                                                 label="Buying Price"--}}
+{{--                                                 name="buying_price"--}}
+{{--                                                 id="buying_price"--}}
+{{--                                                 placeholder="0"--}}
+{{--                                                 value="{{ old('buying_price') }}"--}}
+{{--                                        />--}}
+{{--                                    </div>--}}
 
-                                    <div class="col-sm-6 col-md-6">
-                                        <x-input type="number"
-                                                 label="Selling Price"
-                                                 name="selling_price"
-                                                 id="selling_price"
-                                                 placeholder="0"
-                                                 value="{{ old('selling_price') }}"
-                                        />
-                                    </div>
+{{--                                    <div class="col-sm-6 col-md-6">--}}
+{{--                                        <x-input type="number"--}}
+{{--                                                 label="Selling Price"--}}
+{{--                                                 name="selling_price"--}}
+{{--                                                 id="selling_price"--}}
+{{--                                                 placeholder="0"--}}
+{{--                                                 value="{{ old('selling_price') }}"--}}
+{{--                                        />--}}
+{{--                                    </div>--}}
 
                                     <div class="col-sm-6 col-md-6">
                                         <x-input type="number"
@@ -189,39 +189,39 @@
                                         />
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6">
-                                        <x-input type="number"
-                                                 label="Tax"
-                                                 name="tax"
-                                                 id="tax"
-                                                 placeholder="0"
-                                                 value="{{ old('tax') }}"
-                                        />
-                                    </div>
+{{--                                    <div class="col-sm-6 col-md-6">--}}
+{{--                                        <x-input type="number"--}}
+{{--                                                 label="Tax"--}}
+{{--                                                 name="tax"--}}
+{{--                                                 id="tax"--}}
+{{--                                                 placeholder="0"--}}
+{{--                                                 value="{{ old('tax') }}"--}}
+{{--                                        />--}}
+{{--                                    </div>--}}
 
-                                    <div class="col-sm-6 col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label" for="tax_type">
-                                                {{ __('Tax Type') }}
-                                            </label>
+{{--                                    <div class="col-sm-6 col-md-6">--}}
+{{--                                        <div class="mb-3">--}}
+{{--                                            <label class="form-label" for="tax_type">--}}
+{{--                                                {{ __('Tax Type') }}--}}
+{{--                                            </label>--}}
 
-                                            <select name="tax_type" id="tax_type"
-                                                    class="form-select @error('tax_type') is-invalid @enderror"
-                                            >
-                                                @foreach(\App\Enums\TaxType::cases() as $taxType)
-                                                <option value="{{ $taxType->value }}" @selected(old('tax_type') == $taxType->value)>
-                                                    {{ $taxType->label() }}
-                                                </option>
-                                                @endforeach
-                                            </select>
+{{--                                            <select name="tax_type" id="tax_type"--}}
+{{--                                                    class="form-select @error('tax_type') is-invalid @enderror"--}}
+{{--                                            >--}}
+{{--                                                @foreach(\App\Enums\TaxType::cases() as $taxType)--}}
+{{--                                                <option value="{{ $taxType->value }}" @selected(old('tax_type') == $taxType->value)>--}}
+{{--                                                    {{ $taxType->label() }}--}}
+{{--                                                </option>--}}
+{{--                                                @endforeach--}}
+{{--                                            </select>--}}
 
-                                            @error('tax_type')
-                                            <div class="invalid-feedback">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
-                                        </div>
-                                    </div>
+{{--                                            @error('tax_type')--}}
+{{--                                            <div class="invalid-feedback">--}}
+{{--                                                {{ $message }}--}}
+{{--                                            </div>--}}
+{{--                                            @enderror--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
 
                                     <div class="col-md-12">
                                         <div class="mb-3">

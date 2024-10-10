@@ -96,12 +96,12 @@
                                 @include('inclues._sort-icon', ['field' => 'quantity'])
                             </a>
                         </th>
-                        <th scope="col" class="align-middle text-center">
-                                {{ __('Buying Price') }}
-                        </th>
-                        <th scope="col" class="align-middle text-center">
-                                {{ __('Selling Price') }}
-                        </th>
+{{--                        <th scope="col" class="align-middle text-center">--}}
+{{--                                {{ __('Buying Price') }}--}}
+{{--                        </th>--}}
+{{--                        <th scope="col" class="align-middle text-center">--}}
+{{--                                {{ __('Selling Price') }}--}}
+{{--                        </th>--}}
                         <th scope="col" class="align-middle text-center">
                             {{ __('Action') }}
                         </th>
@@ -130,14 +130,14 @@
                             <td class="align-middle text-center">
                                 {{ $product->quantity }}
                             </td>
-                            <td class="align-middle text-center">
-                                {{ $product->buying_price }}
-                            </td>
-                            <td class="align-middle text-center">
-                                {{ $product->selling_price }}
-                            </td>
+{{--                            <td class="align-middle text-center">--}}
+{{--                                {{ $product->buying_price }}--}}
+{{--                            </td>--}}
+{{--                            <td class="align-middle text-center">--}}
+{{--                                {{ $product->selling_price }}--}}
+{{--                            </td>--}}
                             <td class="align-middle text-center" style="width: 10%">
- 
+
                                 <x-button type="button" class="btn-icon btn btn-outline-info view-product" id="view-product" data-page="product/show" data-product="{{$product}} ">  <x-icon.eye/> </x-button>
                                 <x-button type="button" class="btn-icon btn btn-outline-warning edit-product" data-page="product/edit" id="edit-product" data-product="{{$product}}" >  <x-icon.pencil/> </x-button>
                                 <x-button type="button" class="btn-icon btn btn-outline-danger" wire:click="deleteProduct({{$product->id}})" ><x-icon.trash/> </x-button>
@@ -167,7 +167,7 @@
 </div>
 @script('scripts')
 <script>
-     
+
     //  $wire.on('openModal', (product,pageToInclude) => {
     $(document).on('click', ".edit-product" , function(e){
         e.preventDefault();
@@ -181,7 +181,7 @@
         let product = $(this).data('product');
         let page_url = $(this).data('page');
         let page_title = "Product Detail";
-        setAndShowModal(product,page_url,page_title);  
+        setAndShowModal(product,page_url,page_title);
     });
     function setAndShowModal(product,page_url,page_title){
         $.ajax({
@@ -195,7 +195,7 @@
             },
             success: function(response){
                 $("#loadingModal").modal('hide');
-                // console.log( " Response is : " , response); 
+                // console.log( " Response is : " , response);
                 document.getElementById('modalContent').innerHTML = response.product;
                 $("#modalTitle").text(page_title);
                 $("#modal-save-btn").hide();
@@ -230,7 +230,7 @@
                 console.log('Error updating the product: ' + error);
             }
         });
-        
+
     });
 </script>
 @endscript

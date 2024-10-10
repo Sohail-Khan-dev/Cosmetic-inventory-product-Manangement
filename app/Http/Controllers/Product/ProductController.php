@@ -48,10 +48,10 @@ class ProductController extends Controller
         /**
          * Handle upload image
          */
-        $image = "";
-        if ($request->hasFile('product_image')) {
-            $image = $request->file('product_image')->store('products', 'public');
-        }
+//        $image = "";
+//        if ($request->hasFile('product_image')) {
+//            $image = $request->file('product_image')->store('products', 'public');
+//        }
 
         Product::create([
             "code" => IdGenerator::generate([
@@ -61,16 +61,16 @@ class ProductController extends Controller
                 'prefix' => 'PC'
             ]),
 
-            'product_image'     => $image,
+//            'product_image'     => $image,
             'name'              => $request->name,
             'category_id'       => $request->category_id,
             'unit_id'           => $request->unit_id,
             'quantity'          => $request->quantity,
-            'buying_price'      => $request->buying_price,
-            'selling_price'     => $request->selling_price,
+//            'buying_price'      => $request->buying_price,
+//            'selling_price'     => $request->selling_price,
             'quantity_alert'    => $request->quantity_alert,
-            'tax'               => $request->tax,
-            'tax_type'          => $request->tax_type,
+//            'tax'               => $request->tax,
+//            'tax_type'          => $request->tax_type,
             'notes'             => $request->notes,
             "user_id" => auth()->id(),
             "slug" => Str::slug($request->name, '-'),
@@ -94,7 +94,7 @@ class ProductController extends Controller
             'barcode' => $barcode,
         ]);
     }
-    // Below function is for the modal shown in the product section 
+    // Below function is for the modal shown in the product section
     public function showProduct (Request $request){
         $product = $request->product;
         $product_content = view('products.show',['product' => $product, 'barcode'=>'car'])->render();
@@ -138,13 +138,13 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->unit_id = $request->unit_id;
         $product->quantity = $request->quantity;
-        $product->buying_price = $request->buying_price;
-        $product->selling_price = $request->selling_price;
+//        $product->buying_price = $request->buying_price;
+//        $product->selling_price = $request->selling_price;
         $product->quantity_alert = $request->quantity_alert;
-        $product->tax = $request->tax;
-        $product->tax_type = $request->tax_type;
+//        $product->tax = $request->tax;
+//        $product->tax_type = $request->tax_type;
         $product->notes = $request->notes;
-        $product->product_image = $image;
+//        $product->product_image = $image;
         $product->save();
 
 
@@ -159,12 +159,12 @@ class ProductController extends Controller
         /**
          * Delete photo if exists.
          */
-        if ($product->product_image) {
-            // check if image exists in our file system
-            if (file_exists(public_path('storage/') . $product->product_image)) {
-                unlink(public_path('storage/') . $product->product_image);
-            }
-        }
+//        if ($product->product_image) {
+//             check if image exists in our file system
+//            if (file_exists(public_path('storage/') . $product->product_image)) {
+//                unlink(public_path('storage/') . $product->product_image);
+//            }
+//        }
 
         $product->delete();
 

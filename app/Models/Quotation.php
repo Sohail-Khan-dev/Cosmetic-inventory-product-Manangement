@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Enums\QuotationStatus;
-use Attribute;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -67,7 +67,7 @@ class Quotation extends Model
     protected function totalAmount(): Attribute
     {
         return Attribute::make(
-            get: fn ($value) => $value / 100,
+             get: fn ($value) => $value / 100,
             set: fn ($value) => $value * 100,
         );
     }

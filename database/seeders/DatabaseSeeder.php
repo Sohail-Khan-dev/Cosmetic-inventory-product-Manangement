@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Expense;
 use App\Models\Unit;
 use App\Models\User;
 use App\Models\Product;
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
 
         Customer::factory(8)->create();
         Supplier::factory(5)->create();
-
+        Expense::factory(5)->create();
         /*
         for ($i=0; $i < 10; $i++) {
             Product::factory()->create([

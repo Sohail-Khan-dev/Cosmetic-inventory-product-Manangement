@@ -73,11 +73,11 @@
 
                                 <tr>
                                     <td>Buying Price</td>
-                                    <td>{!! $product['buying_price'] !!}</td>
+                                    <td>Khan lala </td>
                                 </tr>
                                 <tr>
                                     <td>Selling Price</td>
-                                    <td>{!! $product['selling_price'] !!}</td>
+                                    <td>Gul Lala </td>
                                 </tr>
                                 <tr>
                                     <td>Tax</td>

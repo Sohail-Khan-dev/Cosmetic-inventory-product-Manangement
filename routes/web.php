@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CalculateTotalProfit;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Dashboards\DashboardController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Order\DueOrderController;
 use App\Http\Controllers\Order\OrderCompleteController;
@@ -125,10 +127,22 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/quotations/complete/{quotation}', [QuotationController::class, 'update'])->name('quotations.update');
     Route::delete('/quotations/delete/{quotation}', [QuotationController::class, 'destroy'])->name('quotations.delete');
 
-    // Routes Created New for Product Management  
+    // Routes Created New for Product Management
     Route::get('product/show', [ProductController::class,'showProduct']);
     Route::get('product/edit', [ProductController::class,'editProduct']);
     Route::put('product/update', [ProductController::class, 'update']);
+
+
+    // Routes Created For Expense Mgt
+    Route::resource('expense', ExpenseController::class);
+    Route::post('/delete-record', [ExpenseController::class, 'deleteRecord']);
+    Route::get('get-expence-form',[ExpenseController::class,'getExpenceForm']);
+    Route::get('get-expence-form/{id}',[ExpenseController::class,'getExpenceId'])->name('expences.edit');
+
+    //Total Expense Controller
+    Route::get('/calculateTotal',[CalculateTotalProfit::class,'index']);
+
+
 });
 
 require __DIR__.'/auth.php';

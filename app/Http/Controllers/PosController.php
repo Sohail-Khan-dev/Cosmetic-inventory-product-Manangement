@@ -63,16 +63,16 @@ class PosController extends Controller
         $validatedData = $request->validate($rules);
         if ($validatedData['qty'] > Product::where('id', intval($validatedData['product_id']))->value('quantity')) {
             return response()->json(['success'=>false,'message'=>'The requested quantity is not available in stock.']);
-                // above line is added as we will update this with Javascript 
+                // above line is added as we will update this with Javascript
             // return redirect()
             // ->back()
             // ->with('error', 'The requested quantity is not available in stock.');
         }
-        
+
 
         Cart::update($rowId, $validatedData['qty'],$validatedData['price']);
         return response()->json(['success'=>true, 'message'=>'Product has been updated from cart!']);
-        // above line is added as we will update this with Javascript 
+        // above line is added as we will update this with Javascript
         // return redirect()
         //     ->back()
         //     ->with('success', 'Product has been updated from cart!');
@@ -83,11 +83,11 @@ class PosController extends Controller
         // dd($request->all());
         $rowId = $request->rowId;
        $result =  Cart::remove($rowId);
-        return response()->json(['success'=>true, "result"=>$result, 'message'=>'Product has been deleted from cart!']); 
+        return response()->json(['success'=>true, "result"=>$result, 'message'=>'Product has been deleted from cart!']);
 
-        return redirect()
-            ->back()
-            ->with('success', 'Product has been deleted from cart!');
+//        return redirect()
+//            ->back()
+//            ->with('success', 'Product has been deleted from cart!');
     }
     // This function will return the view of Tbody along with total, count etc of Table .
     public function getCart() {
