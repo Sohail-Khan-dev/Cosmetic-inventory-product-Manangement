@@ -191,5 +191,4 @@
 @endsection
 
 <!-- @pushonce('page-scripts')
-<script src="{{ asset('assets/js/img-preview.js') }}"></script>
 @endpushonce -->

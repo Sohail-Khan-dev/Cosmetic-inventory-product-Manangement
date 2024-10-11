@@ -58,7 +58,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="row row-cards">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
 
                                         <x-input name="name"
                                                  id="name"
@@ -109,7 +109,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-sm-6 col-md-6">
+                                    {{-- <div class="col-sm-6 col-md-6">
                                         <div class="mb-3">
                                             <label class="form-label" for="unit_id">
                                                 {{ __('Unit') }}
@@ -147,7 +147,7 @@
                                             </div>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
 
 {{--                                    <div class="col-sm-6 col-md-6">--}}
 {{--                                        <x-input type="number"--}}
@@ -175,7 +175,7 @@
                                                  name="quantity"
                                                  id="quantity"
                                                  placeholder="0"
-                                                 value="{{ old('quantity') }}"
+                                                 value="{{ old('quantity') ?? 0 }}"
                                         />
                                     </div>
 
@@ -185,7 +185,7 @@
                                                  name="quantity_alert"
                                                  id="quantity_alert"
                                                  placeholder="0"
-                                                 value="{{ old('quantity_alert') }}"
+                                                 value="{{ old('quantity_alert') ?? 0}}"
                                         />
                                     </div>
 
@@ -265,5 +265,4 @@
 @endsection
 
 <!-- @pushonce('page-scripts')
-    <script src="{{ asset('assets/js/img-preview.js') }}"></script>
 @endpushonce -->
