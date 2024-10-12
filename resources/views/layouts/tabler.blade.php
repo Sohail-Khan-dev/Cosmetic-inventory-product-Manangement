@@ -640,7 +640,7 @@
     <!-- Libs JS -->
     @stack('page-libraries')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Tabler Core -->
+    <
     <script src="{{ asset('dist/js/tabler.min.js') }}" defer></script>
     <script src="{{ asset('dist/js/demo.min.js') }}" defer></script>
 

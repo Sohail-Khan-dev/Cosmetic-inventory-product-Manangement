@@ -8,10 +8,9 @@
 
         <div class="row row-cards">
 
-            <form action="{{ route('purchases.store') }}" method="POST">
+            <form id="purchaseForm" action="{{ route('purchases.store') }}" method="POST">
                 @csrf
                 <div class="row">
-
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
@@ -99,3 +98,26 @@
     </div>
 </div>
 @endsection
+@pushonce('page-scripts')
+
+    <script>
+        // $("#purchaseForm").submit(function(event){
+        //     event.preventDefault();
+        //     console.log("on Submit of purchase Form");
+        //     const supplierSelect = $("#supplier_id");
+        //     console.log("supplier Value is : ", supplierSelect.val());
+
+        // });
+        document.getElementById('purchaseForm').addEventListener('submit', function(event) {
+            const supplierSelect = document.getElementById('supplier_id');
+            if (!supplierSelect.value) {
+                event.preventDefault(); // Prevent form submission
+                alert('Please select a supplier before purchasing.'); // Show error message
+                supplierSelect.classList.add('is-invalid'); // Add invalid class to input
+            } else {
+                supplierSelect.classList.remove('is-invalid'); // Remove invalid class if valid
+            }
+        });
+    </script>
+@endpushonce
+

@@ -225,5 +225,5 @@
 </div>
 @endsection
 
-<!-- @pushonce('page-scripts')
-@endpushonce -->
+ @pushonce('page-scripts')
+@endpushonce

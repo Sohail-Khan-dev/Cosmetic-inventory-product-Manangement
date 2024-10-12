@@ -15,23 +15,22 @@
             <tr>
                 <td class="align-middle">
                     @if($invoiceProduct['is_saved'])
-                        <input type="hidden" name="invoiceProducts[{{$index}}][product_id]" value="{{ $invoiceProduct['product_id'] }}">
-
+                        <input type="hidden" name="invoiceProducts[{{$index}}][product_id]" value="{{ $invoiceProduct['product_id'] }}" >
                         {{ $invoiceProduct['product_name'] }}
 
                     @else
 
-                        <select wire:model.live="invoiceProducts.{{$index}}.product_id"
+                        <select wire:model.live="invoiceProducts.{{$index}}.product_id" wire:model="selectedProduct" wire:change="handleProductChange"
                                 id="invoiceProducts[{{$index}}][product_id]"
-                                class="form-control text-center @error('invoiceProducts.' . $index . '.product_id') is-invalid @enderror"
+                                class="form-control text-center product-select @error('invoiceProducts.' . $index . '.product_id') is-invalid @enderror"
                         >
 
-                            <option value="" class="text-center">-- choose product --</option>
-
+                            <option value="none" class="text-center">-- choose product --</option>
+                            <option value="add_new" wire:click="toggleModal"  class="text-bg-facebook"> + Add New Product</option>
                             @foreach ($allProducts as $product)
                                 <option value="{{ $product->id }}" class="text-center">
                                     {{ $product->name }}
-    {{--                                    (${{ number_format($product->buying_price, 2) }})--}}
+                                    {{-- {{$product->buying_price }} --}}
                                 </option>
                             @endforeach
                         </select>
@@ -59,6 +58,11 @@
                                class="form-control"
                         />
                     @endif
+                    @error('invoiceProducts.' . $index . "quantity")
+                        <em class="text-danger">
+                            {{ $message }}
+                        </em>
+                    @enderror
                 </td>
 
                 {{--- Unit Price ---}}
@@ -76,6 +80,11 @@
                             class="form-control"
                         />
                     @endif
+                    @error('invoiceProducts.' . $index . "buying_price")
+                        <em class="text-danger">
+                            {{ $message }}
+                        </em>
+                    @enderror
                 </td>
 
                 {{--- Total ---}}
@@ -109,7 +118,7 @@
             @endforeach
             <tr>
                 <td colspan="4"></td>
-                <td class="text-center">
+                <td class="text-center" wire:ignore.self>
                     <button type="button" wire:click="addProduct" class="btn btn-icon btn-success">
                         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
                     </button>
@@ -120,8 +129,8 @@
                     Subtotal
                 </th>
                 <td class="text-center">
-    {{--                    ${{ number_format($subtotal, 2) }}--}}
-                    {{ Number::currency($subtotal, 'EUR') }}
+                    {{--   ${{ number_format($subtotal, 2) }}--}}
+                    {{ $subtotal }}
                 </td>
             </tr>
             <tr>
@@ -144,11 +153,49 @@
                     Total
                 </th>
                 <td class="text-center">
-                    {{ Number::currency($total, 'EUR') }}
+                    {{ $total }}
                     <input type="hidden" name="total_amount" value="{{ $total }}">
                 </td>
             </tr>
 
         </tbody>
     </table>
+    <div class="modal fade" tabindex="-1" id='add-product-modal'>
+        <div class="modal-dialog  modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Product</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <x-input name="product" id="name" placeholder="Product name" value="{{ old('name') }}"   wire:model="product_name"/>
+                @error('product_name')
+                    <em class="text-danger">
+                        {{ $message }}
+                    </em>
+                @enderror
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" wire:click="saveNewProduct">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script>
+
+        window.addEventListener('openModal', event => {
+            $("#add-product-modal").modal('show');
+        });
+        window.addEventListener('closeModal', event => {
+            $("#add-product-modal").modal('hide');
+            setTimeout(() => {
+                // $('.product-select').val(event.detail[0]['productId']).change();
+                $('.product-select').val(event.detail[0]['productId']).trigger('change');
+                console.log( $('.product-select').val());
+                $('#product-id').val(event.detail[0]['productId']);
+            }, 500);
+        });
+
+    </script>
 </div>

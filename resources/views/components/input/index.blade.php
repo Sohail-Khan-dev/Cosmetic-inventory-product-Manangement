@@ -29,6 +29,7 @@
            {{ $required ? 'required' : '' }}
            {{--           value="{{ old($name, $model->name ) }}"--}}
            value="{{ $value }}"
+           {{ $attributes }}
     >
 
     @error($name)

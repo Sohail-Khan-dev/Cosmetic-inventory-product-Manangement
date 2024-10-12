@@ -96,10 +96,10 @@
                                 @include('inclues._sort-icon', ['field' => 'quantity'])
                             </a>
                         </th>
-{{--                        <th scope="col" class="align-middle text-center">--}}
-{{--                                {{ __('Buying Price') }}--}}
-{{--                        </th>--}}
-{{--                        <th scope="col" class="align-middle text-center">--}}
+                       <th scope="col" class="align-middle text-center">
+                               {{ __('Buying Price') }}
+                        </th>
+{{--                       <th scope="col" class="align-middle text-center">--}}
 {{--                                {{ __('Selling Price') }}--}}
 {{--                        </th>--}}
                         <th scope="col" class="align-middle text-center">
@@ -130,9 +130,9 @@
                             <td class="align-middle text-center">
                                 {{ $product->quantity }}
                             </td>
-{{--                            <td class="align-middle text-center">--}}
-{{--                                {{ $product->buying_price }}--}}
-{{--                            </td>--}}
+                           <td class="align-middle text-center">
+                               {{ $product->buying_price }}
+                           </td>
 {{--                            <td class="align-middle text-center">--}}
 {{--                                {{ $product->selling_price }}--}}
 {{--                            </td>--}}
