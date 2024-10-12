@@ -18,7 +18,7 @@
                             <x-action.close route="{{ route('orders.index') }}"/>
                         </div>
                     </div>
-                    <form action="{{ route('invoice.create') }}" method="POST">
+                    <form action="{{ route('invoice.create') }}" method="POST" id="order-form">
                     @csrf
                         <div class="card-body">
                             <div class="row gx-3 mb-3">
@@ -48,7 +48,7 @@
                                         <span class="text-danger">*</span>
                                     </label>
 
-                                    <select class="form-select form-control-solid @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id">
+                                    <select class="form-select form-control-solid @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id" id="customer-select">
                                         <option selected="" disabled="">
                                             Select a customer:
                                         </option>
@@ -131,7 +131,7 @@
                                             {{--- <th scope="col">No.</th> ---}}
                                             <th scope="col">Name</th>
                                             <th scope="col">Quantity</th>
-                                            <th scope="col">Unit</th>
+                                            {{-- <th scope="col">Unit</th> --}}
                                             <th scope="col">Price</th>
                                             <th scope="col">Action</th>
                                         </tr>
@@ -152,11 +152,11 @@
                                             <td class="text-center">
                                                 {{ $product->quantity }}
                                             </td>
-                                            <td class="text-center">
+                                            {{-- <td class="text-center">
                                                 {{ $product->unit->name }}
-                                            </td>
+                                            </td> --}}
                                             <td class="text-center">
-                                                {{ number_format($product->selling_price, 2) }}
+                                                {{ number_format($product->buying_price, 2) }}
                                             </td>
                                             <td>
                                                 <div class="d-flex">
@@ -165,7 +165,7 @@
                                                         @csrf
                                                         <input type="hidden" name="id" value="{{ $product->id }}">
                                                         <input type="hidden" name="name" value="{{ $product->name }}">
-                                                        <input type="hidden" name="selling_price" value="{{ $product->selling_price }}">
+                                                        <input type="hidden" name="buying_price" value="{{ $product->buying_price }}">
                                                         <button type="submit" class="btn btn-icon btn-outline-primary">
                                                             <x-icon.cart/>
                                                         </button>
@@ -199,17 +199,17 @@
         $(document).ready(function(){
             getCart("");  // This will get the cart at page loading .
 
-            // console.log("this if Order Create Page ");
-            $('#productTable').DataTable({
-                "paging": true,        // Enable pagination
-                "searching": true,     // Enable search bar
-                "ordering": true,      // Enable column-based sorting
-                "responsive": true     // Make the table responsive
-            });
-
+            if({{ $total_products}} > 0){
+                $('#productTable').DataTable({
+                    "paging": true,        // Enable pagination
+                    "searching": true,     // Enable search bar
+                    "ordering": true,      // Enable column-based sorting
+                    "responsive": true     // Make the table responsive
+                });
+            }
             $(document).on("submit", "#addCartItemForm", function(e){
                 e.preventDefault();
-                // console.log("Button is clided ");
+                console.log("Button is clided of Add items ");
                 let formData = $(this).serialize();
                 $.ajax({
                     url: "{{ route('pos.addCartItem') }}",
@@ -281,7 +281,14 @@
                     }
                 });
             });
-
+            $('#order-form').submit(function(e){
+                console.log("order fomr is submitted ");
+               let customerSelect = $("#customer-select").val();
+                if(!customerSelect.val()){
+                    e.preventDefault();
+                    alert("please select Customer First ");
+                }
+            });
             function getCart(message){
                 console.log("this is get card ");
                 $.ajax({

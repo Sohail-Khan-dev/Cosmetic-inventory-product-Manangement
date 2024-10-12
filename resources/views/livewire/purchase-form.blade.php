@@ -25,7 +25,7 @@
                                 class="form-control text-center product-select @error('invoiceProducts.' . $index . '.product_id') is-invalid @enderror"
                         >
 
-                            <option value="none" class="text-center">-- choose product --</option>
+                            <option value="" class="text-center">-- choose product --</option>
                             <option value="add_new" wire:click="toggleModal"  class="text-bg-facebook"> + Add New Product</option>
                             @foreach ($allProducts as $product)
                                 <option value="{{ $product->id }}" class="text-center">

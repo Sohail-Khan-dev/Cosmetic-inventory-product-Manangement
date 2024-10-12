@@ -33,7 +33,8 @@ class OrderController extends Controller
 
     public function create()
     {
-        $products = Product::where('user_id', auth()->id())->with(['category', 'unit'])->get();
+        $products = Product::where('user_id', auth()->id())->with(['category', 'unit'])->where('quantity',">",0)->get();
+        // dd($products);
 
         $customers = Customer::where('user_id', auth()->id())->get(['id', 'name']);
 
@@ -43,6 +44,7 @@ class OrderController extends Controller
             'products' => $products,
             'customers' => $customers,
             'carts' => $carts,
+            'total_products'=>$products->count(),
         ]);
     }
 

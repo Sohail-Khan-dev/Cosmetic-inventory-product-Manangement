@@ -80,8 +80,6 @@ class PurchaseForm extends Component
     public function saveProduct($index): void
     {
         $this->resetErrorBag();
-        // dump("Add product is Called", $this->invoiceProducts[$index]['product_id'], $this->product );
-
          // Validate that the buying price is greater than zero
         if ($this->product_buying_price <= 0) {
             $this->addError('invoiceProducts.'.$index . 'buying_price', "The buying price must be greater than zero.");
