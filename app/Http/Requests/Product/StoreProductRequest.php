@@ -26,12 +26,12 @@ class StoreProductRequest extends FormRequest
         return [
 //            'product_image'     => 'image|file|max:2048',
             'name'              => 'required|string',
-            'category_id'       => 'required|integer',
-            'unit_id'           => 'required|integer',
-            'quantity'          => 'required|integer',
-//            'buying_price'      => 'required|integer',
+            'category_id'       => 'nullable|integer',
+            // 'unit_id'           => 'integer',
+            'quantity'          => 'nullable|integer',
+           'buying_price'       => 'nullable|integer',
 //            'selling_price'     => 'required|integer',
-            'quantity_alert'    => 'required|integer',
+            'quantity_alert'    => 'nullable|integer',
 //            'tax'               => 'nullable|numeric',
 //            'tax_type'          => 'nullable|integer',
             'notes'             => 'nullable|max:1000'

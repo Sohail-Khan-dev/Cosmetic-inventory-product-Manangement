@@ -34,8 +34,8 @@ return new class extends Migration
                 ->constrained()
                 ->nullOnDelete();
 
-            $table->foreignIdFor(\App\Models\Unit::class)->constrained()
-                ->cascadeOnDelete();
+            // $table->foreignIdFor(\App\Models\Unit::class)->constrained()
+            //     ->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -25,7 +25,7 @@ class ProductSeeder extends Seeder
 //                'tax_type' => 1,
                 'notes' => null,
                 'category_id' => 3,
-                'unit_id' => 3,
+                // 'unit_id' => 3,
                 'user_id'=>1,
                 'uuid'=>Str::uuid(),
                 'product_image' => 'assets/img/products/ip14.png'
@@ -42,7 +42,7 @@ class ProductSeeder extends Seeder
 //                'tax_type' => 1,
                 'notes' => null,
                 'category_id' => 1,
-                'unit_id' => 3,
+                // 'unit_id' => 3,
                 'user_id'=>1,
                 'uuid'=>Str::uuid(),
                 'product_image' => 'assets/img/products/ip14.png'
@@ -59,7 +59,7 @@ class ProductSeeder extends Seeder
 //                'tax_type' => 1,
                 'notes' => null,
                 'category_id' => 2,
-                'unit_id' => 3,
+                // 'unit_id' => 3,
                 'user_id'=>1,
                 'uuid'=>Str::uuid(),
                 'product_image' => 'assets/img/products/keyboard.jpg'
@@ -76,7 +76,7 @@ class ProductSeeder extends Seeder
 //                'tax_type' => 1,
                 'notes' => null,
                 'category_id' => 4,
-                'unit_id' => 3,
+                // 'unit_id' => 3,
                 'user_id'=>1,
                 'uuid'=>Str::uuid(),
                 'product_image' => 'assets/img/products/speaker.png'
@@ -93,7 +93,7 @@ class ProductSeeder extends Seeder
 //                'tax_type' => 1,
                 'notes' => null,
                 'category_id' => 5,
-                'unit_id' => 3,
+                // 'unit_id' => 3,
                 'user_id'=>1,
                 'uuid'=>Str::uuid(),
                 'product_image' => 'assets/img/products/autocard.png'

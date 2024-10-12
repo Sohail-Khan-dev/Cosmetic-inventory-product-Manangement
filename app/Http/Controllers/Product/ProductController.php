@@ -64,7 +64,7 @@ class ProductController extends Controller
 //            'product_image'     => $image,
             'name'              => $request->name,
             'category_id'       => $request->category_id,
-             'unit_id'           => $request->unit_id ?? 1,
+            //  'unit_id'           => $request->unit_id ?? 1,
             'quantity'          => $request->quantity,
            'buying_price'      => $request->buying_price,
 //            'selling_price'     => $request->selling_price,

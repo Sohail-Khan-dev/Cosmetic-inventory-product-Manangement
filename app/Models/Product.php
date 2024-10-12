@@ -27,7 +27,7 @@ class Product extends Model
         'notes',
 //        'product_image',
         'category_id',
-        // 'unit_id',
+        'unit_id',
         'created_at',
         'updated_at',
         "user_id",
