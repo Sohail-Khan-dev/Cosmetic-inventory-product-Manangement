@@ -124,10 +124,9 @@ class PurchaseForm extends Component
         // $this->validate([
         //     'productName' => 'required|string|max:255',
         // ]);
-        // dd($this->product_name);
         if(empty($this->product_name)){
-            // dd("Product name is Empty ");
-            $this->addError('product_name', 'Product name should not be empty ');
+            // $this->addError('product_name', 'Product name should not be empty ');
+            $this->dispatch('closeModal',['productId' => "null"]);
             return;
         }
         $product =  Product::create([
@@ -137,7 +136,8 @@ class PurchaseForm extends Component
                 'length' => 4,
                 'prefix' => 'PC'
             ]),
-            'name'              => $this->product_name,
+            'name'   => $this->product_name,
+            'quantity' => 0,
             "user_id" => auth()->id(),
             "slug" => Str::slug($this->product_name, '-'),
             "uuid" => Str::uuid()

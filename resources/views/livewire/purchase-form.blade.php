@@ -169,11 +169,7 @@
             </div>
             <div class="modal-body">
                 <x-input name="product" id="name" placeholder="Product name" value="{{ old('name') }}"   wire:model="product_name"/>
-                @error('product_name')
-                    <em class="text-danger">
-                        {{ $message }}
-                    </em>
-                @enderror
+                <p class="error-msg text-danger"> </p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -191,6 +187,11 @@
             $("#add-product-modal").modal('hide');
             setTimeout(() => {
                 // $('.product-select').val(event.detail[0]['productId']).change();
+                if(event.detail[0]['productId'] === 'null'){
+                    $("#add-product-modal").modal('show');
+                    $('.error-msg').text("Pleae Enter the product Name ");
+                    return;
+                }
                 $('.product-select').val(event.detail[0]['productId']).trigger('change');
                 console.log( $('.product-select').val());
                 $('#product-id').val(event.detail[0]['productId']);

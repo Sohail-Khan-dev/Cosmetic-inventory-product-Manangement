@@ -99,15 +99,7 @@
 </div>
 @endsection
 @pushonce('page-scripts')
-
     <script>
-        // $("#purchaseForm").submit(function(event){
-        //     event.preventDefault();
-        //     console.log("on Submit of purchase Form");
-        //     const supplierSelect = $("#supplier_id");
-        //     console.log("supplier Value is : ", supplierSelect.val());
-
-        // });
         document.getElementById('purchaseForm').addEventListener('submit', function(event) {
             const supplierSelect = document.getElementById('supplier_id');
             if (!supplierSelect.value) {
