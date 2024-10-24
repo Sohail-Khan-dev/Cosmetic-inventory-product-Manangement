@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Expense;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+
 
 class ExpenseController extends Controller
 {
@@ -32,22 +32,12 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
 
         $rules=[
           'exp_name'=>'required',
           'exp_description'=>'string',
-//          'exp_purpose'=>'required',
-//          'exp_payment_mode'=>'required', Rule::in(['cash', 'cheque']),
           'exp_amount'=>'required',
-//          'exp_status'=>'required',Rule::in(['paid', 'due']),
         ];
-
-
-//        dd($request->all());
-
-
-
 
         $validatedData = $request->validate($rules);
         if($request->id != null) {
@@ -56,8 +46,8 @@ class ExpenseController extends Controller
             return response()->json(['success'=>true]);
         }
         if(Expense::Create($validatedData))
-            return redirect()->json(['success'=>true]);
-        return redirect()->json(['success'=>false]);
+            return response()->json(['success'=>true]);
+        return response()->json(['success'=>false]);
     }
 
     /**
@@ -77,11 +67,7 @@ class ExpenseController extends Controller
         return view('expense.expense_form',[
             'exp' => $expense,
         ]);
-//
-//        return view('expense.index',[
-//            'expenses' => Expense::all(),
-//            'update_expense'=>$expense
-//        ]);
+
 
 
     }

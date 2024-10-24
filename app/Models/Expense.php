@@ -9,4 +9,14 @@ class Expense extends Model
 {
     use HasFactory;
     protected $guarded=[];
+
+    public function scopeSearch($query, $value)
+    {
+        if (!empty($value)) {
+            return $query->where('exp_name', 'like', "%{$value}%")
+                ->orWhere('exp_description', 'like', "%{$value}%");
+        }
+        return $query;
+    }
+
 }
