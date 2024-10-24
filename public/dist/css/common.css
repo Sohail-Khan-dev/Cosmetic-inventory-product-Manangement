@@ -1,0 +1,9 @@
+.sales-report .sale-value {
+    font-size: 16px;
+    line-height: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+.sales-report .sale-value #total-sale-amount {
+    font-weight: bold;
+}

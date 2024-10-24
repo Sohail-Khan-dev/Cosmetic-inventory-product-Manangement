@@ -47,7 +47,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('dashboard/', [DashboardController::class, 'index'])->name('dashboard');
-
+    Route::get('dashboard/get-sale-report',[DashboardController::class,'getSaleReport'])->name('get-sale-report');
     // User Management
     // Route::resource('/users', UserController::class); //->except(['show']);
     Route::put('/user/change-password/{username}', [UserController::class, 'updatePassword'])->name('users.updatePassword');

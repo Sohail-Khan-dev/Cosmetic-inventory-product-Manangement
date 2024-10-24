@@ -39,4 +39,12 @@ class DashboardController extends Controller
             'quotations' => $quotations
         ]);
     }
+    public function getSaleReport(){
+        $query = Order::where('user_id', auth()->id()); // ->sum('total');
+        $total = $query->sum('total');
+        $due = $query->sum("due");
+        $received = $query->sum('pay');
+        // dd($received);
+       return response()->json(['total'=>$total, 'due'=>$due , 'received'=>$received]);
+    }
 }
