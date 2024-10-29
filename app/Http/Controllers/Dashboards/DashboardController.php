@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Dashboards;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
+use Carbon\Carbon;
 use App\Models\Order;
+use App\Models\Expense;
 use App\Models\Product;
+use App\Models\Category;
 use App\Models\Purchase;
 use App\Models\Quotation;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class DashboardController extends Controller
 {
@@ -39,12 +40,24 @@ class DashboardController extends Controller
             'quotations' => $quotations
         ]);
     }
-    public function getSaleReport(){
-        $query = Order::where('user_id', auth()->id()); // ->sum('total');
+    public function getSaleReport(Request $request){
+        $query = Order::where('user_id', auth()->id())->where('created_at','>=', Carbon::now()->subDays($request->range))->get();
         $total = $query->sum('total');
         $due = $query->sum("due");
         $received = $query->sum('pay');
-        // dd($received);
+
        return response()->json(['total'=>$total, 'due'=>$due , 'received'=>$received]);
+    }
+
+    public function getPurchaseReport(Request $request){
+        $query = Purchase::where('user_id', auth()->id())->where('created_at','>=', Carbon::now()->subDays($request->range))->get();
+        $total = $query->sum("total_amount"); 
+        $pending =Purchase::where('user_id', auth()->id())->where('status', 0)->sum("total_amount");
+        $approve = Purchase::where('user_id', auth()->id())->where('status', 1)->sum('total_amount');
+       return response()->json(['total'=> $total, 'approve'=>$approve , 'pending'=> $pending]);
+    }
+    public function getExpenseReport(Request $request){
+        $total = Expense::all()->where('created_at','>=', Carbon::now()->subDays($request->range))->sum('exp_amount');
+        return response()->json(['total'=>$total]);
     }
 }

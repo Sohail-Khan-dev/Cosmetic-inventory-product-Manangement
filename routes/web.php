@@ -36,6 +36,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('php/', function () {
     return phpinfo();
 });
+Route::get('/test',function(){
+    return view('text.blade.php');
+});
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -48,6 +51,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('dashboard/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('dashboard/get-sale-report',[DashboardController::class,'getSaleReport'])->name('get-sale-report');
+    Route::get('dashboard/get-purchase-report',[DashboardController::class,'getPurchaseReport'])->name('get-purchase-report');
+    Route::get('dashboard/get-expenses-report',[DashboardController::class,'getExpenseReport'])->name('get-expenses-report');
+
     // User Management
     // Route::resource('/users', UserController::class); //->except(['show']);
     Route::put('/user/change-password/{username}', [UserController::class, 'updatePassword'])->name('users.updatePassword');

@@ -4,6 +4,6 @@
     display: flex;
     justify-content: space-between;
 }
-.sales-report .sale-value #total-sale-amount {
+.sales-report  #total-sale-amount, #total-purchase-amount,#total-expense-amount {
     font-weight: bold;
 }

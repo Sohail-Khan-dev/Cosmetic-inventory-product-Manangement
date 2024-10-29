@@ -174,11 +174,11 @@
                                 <div class="h4">Sales Report</div>
                                 <div class="ms-auto lh-1">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
+                                        <a class="dropdown-toggle text-muted"  data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item active" href="#">Last 7 days</a>
-                                            <a class="dropdown-item" href="#">Last 30 days</a>
-                                            <a class="dropdown-item" href="#">Last 3 months</a>
+                                            <a class="dropdown-item sale active" data-range="7" >Last 7 days</a>
+                                            <a class="dropdown-item sale " data-range="30"  >Last 30 days</a>
+                                            <a class="dropdown-item sale " data-range="90"  >Last 3 months</a>
                                         </div>
                                     </div>
                                 </div>
@@ -186,110 +186,55 @@
                             <div class="sale-value">Total Sales : <span id="total-sale-amount"> 234</span></div>
                             <div class="sale-value text-primary">Received amount: <span id="received-sale-amount"> 43 </span> </div>
                             <div class="sale-value text-danger">Due amount :  <span id="due-sale-amount"> 53</span></div>
-                            {{-- <div class="d-flex mb-2">
-                                <div>Conversion rate</div>
-                                <div class="ms-auto">
-                                <span class="text-green d-inline-flex align-items-center lh-1">
-                                  7% <!-- Download SVG icon from http://tabler-icons.io/i/trending-up -->
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l6 -6l4 4l8 -8" /><path d="M14 7l7 0l0 7" /></svg>
-                                </span>
-                                </div>
-                            </div> --}}
-                            {{-- <div class="progress progress-sm">
-                                <div class="progress-bar bg-primary" style="width: 75%" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" aria-label="75% Complete">
-                                    <span class="visually-hidden">75% Complete</span>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                
+                <div class="col-sm-6 col-lg-3 sales-report">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="subheader">Revenue</div>
+                            <div class="d-flex">
+                                <div class="h4">Sales Report</div>
                                 <div class="ms-auto lh-1">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
+                                        <a class="dropdown-toggle text-muted" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item active" href="#">Last 7 days</a>
-                                            <a class="dropdown-item" href="#">Last 30 days</a>
-                                            <a class="dropdown-item" href="#">Last 3 months</a>
+                                            <a class="dropdown-item purchase active" data-range="7">Last 7 days</a>
+                                            <a class="dropdown-item purchase " data-range="30">Last 30 days</a>
+                                            <a class="dropdown-item purchase " data-range="90">Last 3 months</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-baseline">
-                                <div class="h1 mb-0 me-2">$4,300</div>
-                                <div class="me-auto">
-                                <span class="text-green d-inline-flex align-items-center lh-1">
-                                  8% <!-- Download SVG icon from http://tabler-icons.io/i/trending-up -->
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l6 -6l4 4l8 -8" /><path d="M14 7l7 0l0 7" /></svg>
-                                </span>
-                                </div>
-                            </div>
+                            <div class="sale-value">Total Amount: <span id="total-purchase-amount"> 234</span></div>
+                            <div class="sale-value text-primary">Approved Amount: <span id="approved-purchase-amount"> 43 </span> </div>
+                            <div class="sale-value text-danger"> Pending Amount:  <span id="pending-purchase-amount"> 53</span></div>      
                         </div>
-                        <div id="chart-revenue-bg" class="chart-sm"></div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
+                
+                <div class="col-sm-6 col-lg-3 sales-report">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="subheader">New clients</div>
+                            <div class="d-flex">
+                                <div class="h4">Expense Report</div>
                                 <div class="ms-auto lh-1">
                                     <div class="dropdown">
-                                        <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
+                                        <a class="dropdown-toggle text-muted" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item active" href="#">Last 7 days</a>
-                                            <a class="dropdown-item" href="#">Last 30 days</a>
-                                            <a class="dropdown-item" href="#">Last 3 months</a>
+                                            <a class="dropdown-item expense active" data-range="7" >Last 7 days</a>
+                                            <a class="dropdown-item expense" data-range="30" >Last 30 days</a>
+                                            <a class="dropdown-item expense" data-range="90" >Last 3 months</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-baseline">
-                                <div class="h1 mb-3 me-2">6,782</div>
-                                <div class="me-auto">
-                                <span class="text-yellow d-inline-flex align-items-center lh-1">
-                                  0% <!-- Download SVG icon from http://tabler-icons.io/i/minus -->
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /></svg>
-                                </span>
-                                </div>
-                            </div>
-                            <div id="chart-new-clients" class="chart-sm"></div>
+                            <div class="sale-value">Total Expense: <span id="total-expense-amount"> 234</span></div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-3">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <div class="subheader">Active users</div>
-                                <div class="ms-auto lh-1">
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-muted" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last 7 days</a>
-                                        <div class="dropdown-menu dropdown-menu-end">
-                                            <a class="dropdown-item active" href="#">Last 7 days</a>
-                                            <a class="dropdown-item" href="#">Last 30 days</a>
-                                            <a class="dropdown-item" href="#">Last 3 months</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="d-flex align-items-baseline">
-                                <div class="h1 mb-3 me-2">2,986</div>
-                                <div class="me-auto">
-                                <span class="text-green d-inline-flex align-items-center lh-1">
-                                  4% <!-- Download SVG icon from http://tabler-icons.io/i/trending-up -->
-                                  <svg xmlns="http://www.w3.org/2000/svg" class="icon ms-1" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 17l6 -6l4 4l8 -8" /><path d="M14 7l7 0l0 7" /></svg>
-                                </span>
-                                </div>
-                            </div>
-                            <div id="chart-active-users" class="chart-sm"></div>
-                        </div>
-                    </div>
-                </div>
+                
+    
 
 
 
@@ -705,10 +650,7 @@
 @endsection
 
 @push('page-libraries')
-    <script src="{{ asset('dist/libs/apexcharts/dist/apexcharts.min.js') }}" defer></script>
-    <script src="{{ asset('dist/libs/jsvectormap/dist/js/jsvectormap.min.js') }}" defer></script>
-    <script src="{{ asset('dist/libs/jsvectormap/dist/maps/world.js') }}" defer></script>
-    <script src="{{ asset('dist/libs/jsvectormap/dist/maps/world-merc.js') }}" defer></script>
+    
 @endpush
 
 @pushonce('page-scripts')
@@ -929,21 +871,59 @@
     <script>
         // custome script :
         $(document).ready(function(){
-            console.log("here The Dashboard is ready to Launch ");
-            getSalesReport();
-            function getSalesReport(){
+            getSalesReport(7);
+            getPurchaseReport(7);
+            getExpenseReport(7);
+            $(".sale").click(function(){
+                console.log("Clicked " , $(this).data('range'));
+                getSalesReport($(this).data('range'));
+            });
+            $('.purchase').click(function(){
+                getPurchaseReport($(this).data('range')) ;
+            });
+            $('.expense').click(function(){
+                getExpenseReport($(this).data('range'));
+            })
+            function getSalesReport(range){
                 $.ajax({
                     url : "{{route('get-sale-report')}}",
                     method : 'get',
+                    data : {range: range} ,
                     success : function(response){
-                        console.log("Response : " , response);
                         $('#due-sale-amount').text(response.due);
                         $('#received-sale-amount').text(response.received);
                         $('#total-sale-amount').text(response.total);
                     }
                 });
+            } // Sales report end here
+
+            function getPurchaseReport(range){
+                $.ajax({
+                    url : "{{ route('get-purchase-report') }}",
+                    method : 'get',
+                    data : {range: range},
+                    success : function(response){
+                        $("#total-purchase-amount").text(response.total);
+                        $("#approved-purchase-amount").text(response.approve);
+                        $("#pending-purchase-amount").text(response.pending);
+                    }
+                });
+            }  // get Purchase Report End here 
+
+            function getExpenseReport(range){
+                $.ajax({
+                    url: "{{ route('get-expenses-report') }}",
+                    method : 'get',
+                    data : {range : range} ,
+                    success : function(response){
+                        console.log("response is : ", response);
+                        $('#total-expense-amount').text(response.total);
+                    }
+                });
+
             }
 
-        });
+        }); // ready function end here
+
     </script>
 @endpushonce
